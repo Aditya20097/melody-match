@@ -1,0 +1,209 @@
+
+
+.landing-container {
+  position: relative;
+  padding: 2rem 14vw;
+  text-align: center;
+  color: #fff;
+  background: linear-gradient(135deg, #0a0a0a, #60030336, #dd1e5e, #f60062f5);
+  background-size: 400% 400%;
+  animation: gradientPulse 15s ease infinite;
+  min-height: 100vh;
+  overflow-x: hidden;
+  z-index: 1;
+}
+
+ .landing-container::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0; left: 0; right: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 105, 180, 0.08), transparent 60%),
+              radial-gradient(circle at 70% 70%, rgba(255, 20, 147, 0.04), transparent 60%);
+  z-index: 0;
+  pointer-events: none
+}
+
+
+
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.music-card,
+.chat-card {
+  background: linear-gradient(135deg, #77022d, #eb2e53ea);
+  padding: 2rem;
+  border-radius: 20px;
+  width: 40%;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.messages {
+  max-height: 180px;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+
+
+.cta-title {
+  margin-top: 1.5rem;
+}
+
+.concert-btn {
+  margin-top: 0.5rem;
+  padding: 0.7rem 1.4rem;
+  background: #ff66c4;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.concert-btn:hover {
+  background: #ff1aa5;
+}
+
+.messages {
+  max-height: 220px;        
+  min-height: 180px;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.25); 
+  border-radius: 16px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  scroll-behavior: smooth;
+}
+
+
+.own-message,
+.other-message {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  margin: 0.3rem 0;
+  border-radius: 20px;
+  max-width: 70%;
+  word-wrap: break-word;
+}
+
+.own-message {
+  align-self: flex-end;
+  background-color: #ffffff;
+  color: #333;
+  padding: 0.5rem 1rem;
+  border-radius: 20px 20px 0 20px;
+  max-width: 75%;
+  word-wrap: break-word;
+}
+
+.other-message {
+  align-self: flex-start;
+  background-color: #fce4ec;
+  color: #111;
+  padding: 0.5rem 1rem;
+  border-radius: 20px 20px 20px 0;
+  max-width: 75%;
+  word-wrap: break-word;
+}
+
+
+.chat-input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.chat-input-row input {
+  flex: 1;
+  padding: 0.6rem;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+.chat-input-row button {
+  padding: 0.6rem 1rem;
+  border-radius: 20px;
+  border: none;
+  background: #ff66c4;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+
+
+.chat-input-row button:hover {
+  background: #ff1aa5;
+} 
+
+
+
+
+/* Scroll animation */
+@keyframes scrollText {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+
+/* Pulsing wrapper shadow */
+.scroll-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  animation: pulseShadow 5s infinite ease-in-out;
+  z-index: -1;
+}
+
+@keyframes pulseShadow {
+  0% {
+    box-shadow: 0 0 20px rgba(255, 0, 150, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(237, 34, 153, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(255, 0, 150, 0.2);
+  }
+}
+
+
+
+
+
+
+
+@keyframes gradientPulse {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+

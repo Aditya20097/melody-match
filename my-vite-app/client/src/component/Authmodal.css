@@ -1,0 +1,78 @@
+
+.auth-model {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 2rem;
+  border-radius: 20px;
+  color: white;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  z-index: 999;
+  box-shadow: 0 0 40px rgba(0,0,0,0.4);
+}
+
+
+/* Glass/blur effect */
+.auth-model::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: -1;
+  border-radius: inherit;
+}
+
+.auth-form-container {
+  position: relative;
+  z-index: 2;
+}
+
+.auth-form-container input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  color: #fff;
+  outline: none;
+  font-size: 1rem;
+}
+
+.secondary-button {
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  color: white;
+  padding: 0.8rem;
+  border: none;
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.secondary-button:hover {
+  opacity: 0.9;
+}
+
+.close-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+.error-message {
+  color: #ffb3b3;
+  font-size: 0.9rem;
+}
+
+
+
