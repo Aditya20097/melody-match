@@ -16,7 +16,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "*", // Update for production
+    origin: "https://dating-app-frontend.onrender.com", // Update for production
     methods: ["GET", "POST"],
   },
 });

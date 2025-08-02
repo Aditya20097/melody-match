@@ -1,17 +1,5 @@
 
-// import React from 'react';
-// import { BrowserRouter } from 'react-router-dom';
-// import AnimatedRoutes from './AnimateRoutes';
 
-// const App = () => {
-//   return (
-//     <BrowserRouter>
-//       <AnimatedRoutes />
-//     </BrowserRouter>
-//   );
-// };
-
-// export default App;
 
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useCookies } from "react-cookie";

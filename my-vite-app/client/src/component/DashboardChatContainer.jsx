@@ -17,7 +17,7 @@ const DashboardChatContainer = ({ user, matchedUser }) => {
 
   const fetchMessages = async () => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/messages}`
+      const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/messages`
 , {
         params: {
           userId,
@@ -51,7 +51,7 @@ const DashboardChatContainer = ({ user, matchedUser }) => {
     };
 
     try {
-      await axios.post(`${import.meta.env.VITE_SERVER_URL}/message}`
+      await axios.post(`${import.meta.env.VITE_SERVER_URL}/message`
 , { message: newMsg });
       setChat((prev) => [...prev, newMsg]);
       setMessage("");
