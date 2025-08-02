@@ -16,7 +16,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://dating-app-frontend.onrender.com", // Update for production
+    origin: "https://melody-match-3wi6.onrender.com", // Update for production
     methods: ["GET", "POST"],
   },
 });
