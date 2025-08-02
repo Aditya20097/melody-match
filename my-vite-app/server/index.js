@@ -391,41 +391,84 @@ app.post("/message", async (req, res) => {
 
 
 
+// io.on("connection", (socket) => {
+//   console.log("User connected:", socket.id);
+
+
+// socket.on("sendMessage", (msgObj) => {
+//   io.emit("receiveMessage", msgObj);
+// });
+
+
+//   socket.on("disconnect", () => {
+//     console.log("User disconnected:", socket.id);
+//   });
+// });
+
+
+
+
+
+// io.on("connection", (socket) => {
+//   console.log("User connected");
+
+//   socket.on("join_room", (room) => {
+//     socket.join(room);
+//     console.log(`User joined room: ${room}`);
+//   });
+
+//   socket.on("send_message", (data) => {
+//     io.to(data.room).emit("receive_message", data);
+//   });
+
+//   socket.on("disconnect", () => {
+//     console.log("User disconnected");
+//   });
+// });
+
 io.on("connection", (socket) => {
-  console.log("User connected:", socket.id);
+  console.log("🟢 User connected:", socket.id);
 
-
-socket.on("sendMessage", (msgObj) => {
-  io.emit("receiveMessage", msgObj);
-});
-
-
-  socket.on("disconnect", () => {
-    console.log("User disconnected:", socket.id);
+  // 🗨️ Chat message logic
+  socket.on("sendMessage", (msgObj) => {
+    io.emit("receiveMessage", msgObj);
   });
-});
 
-
-
-
-
-io.on("connection", (socket) => {
-  console.log("User connected");
-
+  // 💬 Match-based chat room (1-1)
   socket.on("join_room", (room) => {
     socket.join(room);
-    console.log(`User joined room: ${room}`);
+    console.log(`User joined chat room: ${room}`);
   });
 
   socket.on("send_message", (data) => {
     io.to(data.room).emit("receive_message", data);
   });
 
+  // 🎵 Group music room logic
+  socket.on("join_music_room", (roomId) => {
+    socket.join(roomId);
+    console.log(`User ${socket.id} joined music room ${roomId}`);
+  });
+
+  socket.on("play_track", ({ roomId, uri }) => {
+    socket.to(roomId).emit("play_track", uri);
+    console.log(`Track played in room ${roomId}: ${uri}`);
+  });
+
+  socket.on("pause_track", (roomId) => {
+    socket.to(roomId).emit("pause_track");
+    console.log(`Track paused in room ${roomId}`);
+  });
+
+  // Optional: sync seek position
+  socket.on("sync_seek", ({ roomId, position_ms }) => {
+    socket.to(roomId).emit("sync_seek", position_ms);
+  });
+
   socket.on("disconnect", () => {
-    console.log("User disconnected");
+    console.log("🔴 User disconnected:", socket.id);
   });
 });
-
 
 
 
