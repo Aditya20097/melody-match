@@ -12,6 +12,7 @@
 // };
 
 // export default App;
+
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import Home from "./pages/Home";
@@ -20,6 +21,12 @@ import Onboarding from "./pages/Onboarding";
 import LandingPage from "./pages/LandingPage"
 
 import ConcertsPage from "./pages/ConcertsPage";
+import CallbackHandler from "./component/CallbackHandler";
+import { SpotifyAuthutil } from "./component/SpotifyAuthutil";
+import MusicRoom from "./component/MusicRoom";
+import LoginWithSpotify from "./component/Spotifyloginpages";
+import Room from "./component/Room";
+
 
 const App = () => {
   const [cookies] = useCookies(["user"]);
@@ -37,6 +44,11 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/music" element={<LandingPage />} />
           <Route path="/music/concerts" element={<ConcertsPage/>} />
+           <Route path="/callback" element={<CallbackHandler />} />
+              <Route path="/loginspotify" element={<SpotifyAuthutil/>} />
+               <Route path="/room" element={<MusicRoom />} />
+             <Route path="/loginspotifypage" element={<LoginWithSpotify/>} />
+              <Route path="/roompages" element={<Room/>} />    
         </>
       ) : (
         // If not logged in, block access to all protected routes
@@ -50,7 +62,7 @@ const App = () => {
       )}
 
       {/* Optional: 404 route */}
-      <Route path="*" element={<Navigate to="/" />} />
+      {/* <Route path="*" element={<Navigate to="/" />} /> */}
     </Routes>
   );
 };
