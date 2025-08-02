@@ -4,8 +4,9 @@ import React, { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import io from "socket.io-client";
 import "./LandingPage.css";
+const socket = io(import.meta.env.VITE_SERVER_URL); // ✅ Vite-friendly
 
-const socket = io("http://localhost:8000"); // backend must run here
+// backend must run here
 
 
 export default function LandingPage() {

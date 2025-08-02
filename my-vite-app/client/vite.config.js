@@ -1,10 +1,15 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  envPrefix: 'VITE_', // expose only VITE_ envs
   server: {
-    allowedHosts: ['e9d89261c3c5.ngrok-free.app'] // ✅ This allows external domains like ngrok
-  }
+    proxy: {
+      // '/api': 'http://localhost:8000', // optional dev proxy
+    },
+  },
+  build: {
+    outDir: 'dist',
+  },
 });

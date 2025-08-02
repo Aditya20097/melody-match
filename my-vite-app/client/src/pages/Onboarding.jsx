@@ -45,7 +45,8 @@ const Onboarding = () => {
   };
 
   try {
-    const response = await axios.put("http://localhost:8000/user", payload); // ✅ not { payload }
+    const response = await axios.put(`${import.meta.env.VITE_SERVER_URL}/user}`
+, payload); // ✅ not { payload }
     if (response.status === 200) navigate("/");
   } catch (err) {
     console.error(err);

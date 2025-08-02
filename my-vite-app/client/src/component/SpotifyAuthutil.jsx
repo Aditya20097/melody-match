@@ -22,7 +22,7 @@ export async function SpotifyAuthutil() {
   const redirectUri = "https://e9d89261c3c5.ngrok-free.app/callback";
 
   const codeVerifier = generateRandomString(128);
-  console.log("Generated code_verifier:", codeVerifier); // ✅ log it
+  ("Generated code_verifier:", codeVerifier); // ✅ log it
 
   const codeChallenge = await generateCodeChallenge(codeVerifier);
   const state = generateRandomString(16);

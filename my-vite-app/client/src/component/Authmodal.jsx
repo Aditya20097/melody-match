@@ -29,7 +29,7 @@ const Authmodal = ({ setshowModal, isSignUp }) => {
       }
 
       const response = await axios.post(
-        `http://localhost:8000/${isSignUp ? "signup" : "login"}`,
+        `${import.meta.env.VITE_SERVER_URL}/${isSignUp ? "signup" : "login"}`,
         { email, password }
       );
 
