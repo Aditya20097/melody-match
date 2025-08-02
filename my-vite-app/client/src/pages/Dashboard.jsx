@@ -19,10 +19,10 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/user}`
-, {
-          params: { userId },
-        });
+        const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/user`, {
+  params: { userId },
+});
+
         setUser(res.data);
       } catch (err) {
         console.error("Failed to fetch user:", err);
@@ -34,13 +34,13 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchGenderedUsers = async () => {
       try {
-        const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/gendered-users}`
-, {
-          params: {
-            gender: user?.gender_interest,
-            userId: user?.user_id,
-          },
-        });
+       const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/gendered-users`, {
+  params: {
+    gender: user?.gender_interest,
+    userId: user?.user_id,
+  },
+});
+
         setGenderedUsers(res.data);
       } catch (err) {
         console.error("Failed to fetch gendered users:", err);
@@ -51,7 +51,7 @@ const Dashboard = () => {
 
   const updateMatches = async (matchedUserId) => {
     try {
-      await axios.put(`${import.meta.env.VITE_SERVER_URL}/addmatch}`
+      await axios.put(`${import.meta.env.VITE_SERVER_URL}/addmatch`
 , { userId, matchedUserId });
       const res = await axios.get(`${import.meta.env.VITE_SERVER_URL}/user}`
 , {
