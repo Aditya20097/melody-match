@@ -20,7 +20,7 @@ const ChatInput = ({ user, clickedUser, getUserMessages, getClickedUsersMessages
             getClickedUsersMessages()
             setTextArea("")
         } catch (error) {
-            console.log(error)
+            (error)
         }
     }
 

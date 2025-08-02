@@ -33,12 +33,12 @@ export default function Room() {
       });
 
       spotifyPlayer.addListener("ready", ({ device_id }) => {
-        console.log("✅ Spotify Player is ready:", device_id);
+        ("✅ Spotify Player is ready:", device_id);
         setDeviceId(device_id);
       });
 
       spotifyPlayer.addListener("not_ready", ({ device_id }) => {
-        console.log("❌ Device ID has gone offline:", device_id);
+        ("❌ Device ID has gone offline:", device_id);
       });
 
       spotifyPlayer.connect();
@@ -51,7 +51,7 @@ export default function Room() {
     socket.emit("join_music_room", roomId);
 
     socket.on("play_track", async (uri) => {
-      console.log("📡 Received play_track:", uri);
+      ("📡 Received play_track:", uri);
       setTrackUri(uri);
       await axios.put(
         `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
@@ -61,7 +61,7 @@ export default function Room() {
     });
 
     socket.on("pause_track", () => {
-      console.log("⏸ Received pause");
+      ("⏸ Received pause");
       player?.pause();
     });
 

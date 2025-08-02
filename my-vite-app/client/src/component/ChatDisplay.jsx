@@ -17,7 +17,7 @@ const ChatDisplay = ({ user , clickedUser }) => {
             })
          setUsersMessages(response.data)
         } catch (error) {
-         console.log(error)
+         (error)
      }
     }
 
@@ -28,7 +28,7 @@ const ChatDisplay = ({ user , clickedUser }) => {
             })
             setClickedUsersMessages(response.data)
         } catch (error) {
-            console.log(error)
+            (error)
         }
     }
 

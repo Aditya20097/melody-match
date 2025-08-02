@@ -26,7 +26,7 @@ app.use(express.json());
 
 // ✅ Real-time Chat (Socket.IO)
 // io.on("connection", (socket) => {
-//   console.log("User connected:", socket.id);
+//   ("User connected:", socket.id);
 
 
 // socket.on("sendMessage", (msgObj) => {
@@ -35,7 +35,7 @@ app.use(express.json());
 
 
 //   socket.on("disconnect", () => {
-//     console.log("User disconnected:", socket.id);
+//     ("User disconnected:", socket.id);
 //   });
 // });
 
@@ -71,7 +71,7 @@ app.post("/signup", async (req, res) => {
     const token = jwt.sign(insertedUser, sanitizedEmail, { expiresIn: 60 * 24 });
     res.status(201).json({ token, userId: generatedUserId });
   } catch (err) {
-    console.log(err);
+    (err);
   } finally {
     await client.close();
   }
@@ -96,7 +96,7 @@ app.post("/login", async (req, res) => {
 
     res.status(400).json("Invalid Credentials");
   } catch (err) {
-    console.log(err);
+    (err);
   } finally {
     await client.close();
   }
@@ -315,8 +315,8 @@ app.put("/user", async (req, res) => {
       }
     };
 
-    console.log("Updating user:", query);
-    console.log("Update doc:", updateDocument);
+    ("Updating user:", query);
+    ("Update doc:", updateDocument);
 
     const result = await users.updateOne(query, updateDocument, {
       upsert: true
@@ -392,7 +392,7 @@ app.post("/message", async (req, res) => {
 
 
 // io.on("connection", (socket) => {
-//   console.log("User connected:", socket.id);
+//   ("User connected:", socket.id);
 
 
 // socket.on("sendMessage", (msgObj) => {
@@ -401,7 +401,7 @@ app.post("/message", async (req, res) => {
 
 
 //   socket.on("disconnect", () => {
-//     console.log("User disconnected:", socket.id);
+//     ("User disconnected:", socket.id);
 //   });
 // });
 
@@ -410,11 +410,11 @@ app.post("/message", async (req, res) => {
 
 
 // io.on("connection", (socket) => {
-//   console.log("User connected");
+//   ("User connected");
 
 //   socket.on("join_room", (room) => {
 //     socket.join(room);
-//     console.log(`User joined room: ${room}`);
+//     (`User joined room: ${room}`);
 //   });
 
 //   socket.on("send_message", (data) => {
@@ -422,12 +422,12 @@ app.post("/message", async (req, res) => {
 //   });
 
 //   socket.on("disconnect", () => {
-//     console.log("User disconnected");
+//     ("User disconnected");
 //   });
 // });
 
 io.on("connection", (socket) => {
-  console.log("🟢 User connected:", socket.id);
+  ("🟢 User connected:", socket.id);
 
   // 🗨️ Chat message logic
   socket.on("sendMessage", (msgObj) => {
@@ -437,7 +437,7 @@ io.on("connection", (socket) => {
   // 💬 Match-based chat room (1-1)
   socket.on("join_room", (room) => {
     socket.join(room);
-    console.log(`User joined chat room: ${room}`);
+    (`User joined chat room: ${room}`);
   });
 
   socket.on("send_message", (data) => {
@@ -447,17 +447,17 @@ io.on("connection", (socket) => {
   // 🎵 Group music room logic
   socket.on("join_music_room", (roomId) => {
     socket.join(roomId);
-    console.log(`User ${socket.id} joined music room ${roomId}`);
+    (`User ${socket.id} joined music room ${roomId}`);
   });
 
   socket.on("play_track", ({ roomId, uri }) => {
     socket.to(roomId).emit("play_track", uri);
-    console.log(`Track played in room ${roomId}: ${uri}`);
+    (`Track played in room ${roomId}: ${uri}`);
   });
 
   socket.on("pause_track", (roomId) => {
     socket.to(roomId).emit("pause_track");
-    console.log(`Track paused in room ${roomId}`);
+    (`Track paused in room ${roomId}`);
   });
 
   // Optional: sync seek position
@@ -466,7 +466,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("disconnect", () => {
-    console.log("🔴 User disconnected:", socket.id);
+    ("🔴 User disconnected:", socket.id);
   });
 });
 
@@ -477,5 +477,5 @@ io.on("connection", (socket) => {
 
 
 
-server.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+server.listen(PORT, () => (`Server running on http://localhost:${PORT}`));
 

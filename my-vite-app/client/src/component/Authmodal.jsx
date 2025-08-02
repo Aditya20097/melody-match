@@ -43,7 +43,7 @@ const Authmodal = ({ setshowModal, isSignUp }) => {
 
       window.location.reload();
     } catch (error) {
-      console.log(error);
+      (error);
       setError("Something went wrong. Try again.");
     }
   };

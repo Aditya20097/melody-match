@@ -19,7 +19,7 @@ const MatchesDisplay = ({ matches, setClickedUser, currentUser }) => {
       });
       setMatchedProfiles(response.data);
     } catch (error) {
-      console.log(error);
+      (error);
     }
   };
 
@@ -30,26 +30,26 @@ const MatchesDisplay = ({ matches, setClickedUser, currentUser }) => {
 //   (arr || []).map((item) => (item || "").toLowerCase().trim()).filter(Boolean);
 
 // const getCommonTraits = (match) => {
-//   console.log("✅ Comparing currentUser:", currentUser);
-//   console.log("✅ Against match:", match);
+//   ("✅ Comparing currentUser:", currentUser);
+//   ("✅ Against match:", match);
 
 //   const userSongs = normalizeArray(currentUser.favoriteSongs);
 //   const matchSongs = normalizeArray(match.favoriteSongs);
-//   console.log("🎵 Normalized Songs:", { userSongs, matchSongs });
+//   ("🎵 Normalized Songs:", { userSongs, matchSongs });
 
 //   const userArtists = normalizeArray(currentUser.favoriteArtists);
 //   const matchArtists = normalizeArray(match.favoriteArtists);
-//   console.log("🎤 Normalized Artists:", { userArtists, matchArtists });
+//   ("🎤 Normalized Artists:", { userArtists, matchArtists });
 
 //   const userGenres = normalizeArray(currentUser.musicPreferences);
 //   const matchGenres = normalizeArray(match.musicPreferences);
-//   console.log("🎧 Normalized Genres:", { userGenres, matchGenres });
+//   ("🎧 Normalized Genres:", { userGenres, matchGenres });
 
 //   const commonSongs = matchSongs.filter((s) => userSongs.includes(s));
 //   const commonArtists = matchArtists.filter((a) => userArtists.includes(a));
 //   const commonGenres = matchGenres.filter((g) => userGenres.includes(g));
 
-//   console.log("✅ Shared:", { commonSongs, commonArtists, commonGenres });
+//   ("✅ Shared:", { commonSongs, commonArtists, commonGenres });
 
 //   return { commonSongs, commonArtists, commonGenres };
 // };
