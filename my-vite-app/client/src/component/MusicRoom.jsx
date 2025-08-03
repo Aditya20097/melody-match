@@ -180,6 +180,8 @@ export default function MusicRoom() {
           <button onClick={sendMessage} style={styles.btn}>📨 Send</button>
         </div>
       </div>
+       <SearchAndPlay deviceId={deviceId}/>
+//           <NowPlaying/>
     </div>
   );
 }
