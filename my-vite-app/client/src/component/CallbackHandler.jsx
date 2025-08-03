@@ -35,7 +35,7 @@ export default function CallbackHandler() {
         const { access_token } = response.data;
         localStorage.setItem("spotify_access_token", access_token);
         ("Access token:", access_token);
-        navigate("/roompages"); // or dashboard page
+        navigate(/room/roomId); // or dashboard page
       } catch (error) {
   console.error("Token exchange failed:", error.response?.data || error.message);
 }
