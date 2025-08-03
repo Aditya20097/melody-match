@@ -81,13 +81,10 @@ export default function NowPlaying() {
     return () => clearInterval(interval);
   }, [token]);
 
-  const goToRoom = () => {
-    if (track?.id) {
-      navigate(`/room/${track.id}`, {
-        state: { track }
-      });
-    }
-  };
+ const goToRoom = () => {
+  if (!track?.id) return;
+  navigate(`/room/${track.id}`);
+};
 
   if (!track) return <p style={{ color: "white" }}>Nothing is playing</p>;
 
