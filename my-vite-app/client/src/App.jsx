@@ -13,7 +13,7 @@ import CallbackHandler from "./component/CallbackHandler";
 import { SpotifyAuthutil } from "./component/SpotifyAuthutil";
 import MusicRoom from "./component/MusicRoom";
 import LoginWithSpotify from "./component/Spotifyloginpages";
-import Room from "./component/Room";
+import RoomPage from "./component/Room";
 
 
 const App = () => {
@@ -36,7 +36,7 @@ const App = () => {
               <Route path="/loginspotify" element={<SpotifyAuthutil/>} />
                <Route path="/room" element={<MusicRoom />} />
              <Route path="/loginspotifypage" element={<LoginWithSpotify/>} />
-              <Route path="/roompages" element={<Room/>} />    
+              <Route path="/roompages" element={<RoomPage/>} />    
         </>
       ) : (
         // If not logged in, block access to all protected routes

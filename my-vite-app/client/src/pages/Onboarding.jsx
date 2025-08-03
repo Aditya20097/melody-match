@@ -12,7 +12,9 @@ const Onboarding = () => {
   const [musicPreferences , setMusicPreferences] = useState("");
   const [favouriteArtists, setFavouriteArtists] = useState("");
 
-   const [cookies] = useCookies(["user"]);
+  //  const [cookies] = useCookies(["user"]);
+  const [cookies, setCookie] = useCookies(["user", "onboarded"]);
+
   const [formData, setFormData] = useState({
     user_id: cookies.UserId,
     first_name: "",
@@ -39,19 +41,27 @@ const Onboarding = () => {
 
   const payload = {
     ...formData,
+    onboarded: true, // Optional: save in DB too
     favoriteSongs: formData.favoriteSong.split(",").map(s => s.trim()),
     favoriteArtists: formData.favouriteArtists.split(",").map(a => a.trim()),
     musicPreferences: formData.musicPreferences.split(",").map(g => g.trim())
   };
 
   try {
-    const response = await axios.put(`${import.meta.env.VITE_SERVER_URL}/user`
-, payload); // ✅ not { payload }
-    if (response.status === 200) navigate("/");
+    const response = await axios.put(`${import.meta.env.VITE_SERVER_URL}/user`, payload);
+
+    if (response.status === 200) {
+      // ✅ Set onboarded flag in cookie
+      setCookie("onboarded", true, { path: "/" });
+
+      // ✅ Redirect to dashboard (not root)
+      navigate("/dashboard");
+    }
   } catch (err) {
     console.error(err);
   }
 };
+
 
 
   const handleChange = (e) => {

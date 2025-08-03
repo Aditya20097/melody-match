@@ -1,5 +1,6 @@
 
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
+
 const express = require("express");
 const { MongoClient } = require("mongodb");
 const { v4: uuidv4 } = require("uuid");
@@ -14,30 +15,44 @@ require("dotenv").config();
 const uri = process.env.URI;
 const app = express();
 const server = http.createServer(app);
+const allowedOrigins = [
+  
+  "http://localhost:3000",
+  "https://melody-match-3wi6.onrender.com"
+];
+
+// For REST API
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS error"));
+    }
+  },
+  credentials: true
+}));
+
+// For Socket.IO
 const io = new Server(server, {
   cors: {
-    origin: "https://melody-match-3wi6.onrender.com", // Update for production
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Socket.IO CORS error"));
+      }
+    },
     methods: ["GET", "POST"],
-  },
+    credentials: true
+  }
 });
 
-app.use(cors());
+
 app.use(express.json());
 
-// ✅ Real-time Chat (Socket.IO)
-// io.on("connection", (socket) => {
-//   ("User connected:", socket.id);
 
 
-// socket.on("sendMessage", (msgObj) => {
-//   io.emit("receiveMessage", msgObj);
-// });
-
-
-//   socket.on("disconnect", () => {
-//     ("User disconnected:", socket.id);
-//   });
-// });
 
 
 
@@ -142,53 +157,6 @@ app.put("/addmatch", async (req, res) => {
   }
 });
 
-
-// app.get("/users", async (req, res) => {
-//   const client = new MongoClient(uri);
-//   const userIds = JSON.parse(req.query.userIds);
-
-//   try {
-//     await client.connect();
-//     const database = client.db("app-data");
-//     const users = database.collection("users");
-
-//     const pipeline = [{ $match: { user_id: { $in: userIds } } }];
-//     const foundUsers = await users.aggregate(pipeline).toArray();
-//     res.json(foundUsers);
-//   } finally {
-//     await client.close();
-//   }
-// });
-
-// app.get("/users", async (req, res) => {
-//   const client = new MongoClient(uri);
-//   const userIds = JSON.parse(req.query.userIds);
-
-//   try {
-//     await client.connect();
-//     const database = client.db("app-data");
-//     const users = database.collection("users");
-
-//     const pipeline = [
-//       {
-//         $match: { user_id: { $in: userIds } }
-//       },
-//       {
-//         $project: {
-//           user_id: 1,
-//           first_name: 1,
-//           url: 1,
-//           matches: 1
-//         }
-//       }
-//     ];
-
-//     const foundUsers = await users.aggregate(pipeline).toArray();
-//     res.json(foundUsers);
-//   } finally {
-//     await client.close();
-//   }
-// });
 app.get("/users", async (req, res) => {
   const client = new MongoClient(uri);
   const userIds = JSON.parse(req.query.userIds);

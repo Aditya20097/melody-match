@@ -1,8 +1,8 @@
 import { io } from "socket.io-client";
 
-const socket = io("https://melody-matches.onrender.com", {
-  transports: ["websocket"],   // ✅ Skip polling
-  secure: true,
+const socket = io(import.meta.env.VITE_SERVER_URL, {
+  transports: ["websocket"], // ✅ avoid polling (less CORS headache)
 });
+
 
 export default socket;

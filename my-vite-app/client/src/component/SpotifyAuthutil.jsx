@@ -19,7 +19,7 @@ async function generateCodeChallenge(codeVerifier) {
 
 export async function SpotifyAuthutil() {
   const clientId = "76172eb405974433bed17346bf7b15df";
-  const redirectUri = "https://e9d89261c3c5.ngrok-free.app/callback";
+  const redirectUri = "https://melody-match-3wi6.onrender.com/callback";
 
   const codeVerifier = generateRandomString(128);
   ("Generated code_verifier:", codeVerifier); // ✅ log it
