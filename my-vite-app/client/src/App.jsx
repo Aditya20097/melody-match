@@ -36,7 +36,8 @@ const App = () => {
               <Route path="/loginspotify" element={<SpotifyAuthutil/>} />
                <Route path="/room" element={<MusicRoom />} />
              <Route path="/loginspotifypage" element={<LoginWithSpotify/>} />
-              <Route path="/roompages" element={<RoomPage/>} />    
+              <Route path="/room/:roomId" element={<RoomPage />} />
+  
         </>
       ) : (
         // If not logged in, block access to all protected routes
