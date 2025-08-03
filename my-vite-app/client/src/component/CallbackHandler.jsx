@@ -23,7 +23,7 @@ export default function CallbackHandler() {
           new URLSearchParams({
             grant_type: "authorization_code",
             code,
-            redirect_uri: "https://e9d89261c3c5.ngrok-free.app/callback", // Replace this
+            redirect_uri: "https://melody-match-3wi6.onrender.com/callback", // Replace this
             client_id: "76172eb405974433bed17346bf7b15df", // Replace this
             code_verifier: codeVerifier,
           }),
