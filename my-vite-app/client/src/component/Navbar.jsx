@@ -83,7 +83,7 @@ const Navbar = ({ setshowModal, showModal, authToken, setisSignUp }) => {
 
         {/* Show these only if user is onboarded */}
         {authToken &&  <Link to="/dashboard">💘 Dashboard</Link>}
-        {authToken &&  <Link to="/music">🎧 Music</Link>}
+        
         {authToken &&  <Link to="/music/concerts">🎫 Concerts</Link>}
       </div>
 

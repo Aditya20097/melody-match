@@ -6,14 +6,14 @@ import { useCookies } from "react-cookie";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Onboarding from "./pages/Onboarding";
-import LandingPage from "./pages/LandingPage"
+
 
 import ConcertsPage from "./pages/ConcertsPage";
 import CallbackHandler from "./component/CallbackHandler";
 import { SpotifyAuthutil } from "./component/SpotifyAuthutil";
 import MusicRoom from "./component/MusicRoom";
 import LoginWithSpotify from "./component/Spotifyloginpages";
-import RoomPage from "./component/Room";
+
 
 
 const App = () => {
@@ -30,13 +30,13 @@ const App = () => {
         <>
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/music" element={<LandingPage />} />
+          
           <Route path="/music/concerts" element={<ConcertsPage/>} />
            <Route path="/callback" element={<CallbackHandler />} />
               <Route path="/loginspotify" element={<SpotifyAuthutil/>} />
                <Route path="/room" element={<MusicRoom />} />
              <Route path="/loginspotifypage" element={<LoginWithSpotify/>} />
-              <Route path="/room/:roomId" element={<RoomPage />} />
+              
   
         </>
       ) : (
@@ -44,7 +44,7 @@ const App = () => {
         <>
           <Route path="/onboarding" element={<Navigate to="/" />} />
           <Route path="/dashboard" element={<Navigate to="/" />} />
-          <Route path="/music" element={<Navigate to="/" />} />
+          
           
           <Route path="/music/concerts" element={<Navigate to="/" />} />
         </>
