@@ -160,13 +160,30 @@ button:hover {
   text-align: right;
 }
 
-.chat-input {
+.chat-input-container {
   display: flex;
-  gap: 0.5rem;
-  padding: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(6px);
 }
 
+.chat-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 0.65rem 1rem;
+  font-size: 1rem;
+  color: white;
+  outline: none;
+  border-radius: 8px;
+}
+.chat-input::placeholder {
+  color: #aaa;
+}
 .chat-input input {
   flex: 1;
   padding: 0.5rem;
@@ -177,14 +194,16 @@ button:hover {
   outline: none;
 }
 
-.chat-input button {
+
+.send-button {
   background: #1db954;
   border: none;
-  border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
   color: white;
-  font-weight: bold;
+  padding: 0.65rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
+  transition: 0.2s ease;
 }
 .typing-indicator {
   font-size: 0.85rem;

@@ -339,16 +339,18 @@ const handleInputChange = (e) => {
 </div>
 
 
-  <div className="chat-input">
-    <input
-      type="text"
-      value={inputMessage}
-      onChange={handleInputChange}
-      placeholder="Type a message..."
-      onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-    />
-    <button onClick={sendMessage}>Send</button>
-  </div>
+  <div className="chat-input-container">
+  <input
+    type="text"
+    value={inputMessage}
+    onChange={handleInputChange}
+    placeholder="Type a message..."
+    onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+    className="chat-input"
+  />
+  <button onClick={sendMessage} className="send-button">Send</button>
+</div>
+
 </div>
 
       </div>
