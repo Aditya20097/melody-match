@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import socket from "./Socket";
 import "./MusicRoom.css";
 
 export default function Room() {
@@ -28,38 +29,63 @@ const [progress, setProgress] = useState(0);
     }
 
     window.onSpotifyWebPlaybackSDKReady = () => {
-      const newPlayer = new window.Spotify.Player({
-        name: "Harmonic Soul Player 🎵",
-        getOAuthToken: cb => cb(token),
-        volume: 0.5,
-      });
-
-      setPlayer(newPlayer);
-
-      newPlayer.addListener("ready", ({ device_id }) => {
-        console.log("✅ Player is ready with device ID:", device_id);
-        setDeviceId(device_id);
-        localStorage.setItem("spotify_device_id", device_id);
-      });
-
-      newPlayer.addListener("player_state_changed", (state) => {
-  if (!state) return;
-
-  setIsPaused(state.paused);
-
-  const { current_track } = state.track_window;
-  setNowPlaying({
-    name: current_track.name,
-    artist: current_track.artists.map(a => a.name).join(", "),
-    albumArt: current_track.album.images[0]?.url,
-    duration: state.duration,
+  const newPlayer = new window.Spotify.Player({
+    name: "Harmonic Soul Player 🎵",
+    getOAuthToken: cb => cb(token),
+    volume: 0.5,
   });
 
-  setProgress(state.position);
-});
+  newPlayer.addListener("ready", ({ device_id }) => {
+    console.log("✅ Player is ready with device ID:", device_id);
+    setDeviceId(device_id);
+    localStorage.setItem("spotify_device_id", device_id);
+  });
 
-      newPlayer.connect();
-    };
+  newPlayer.addListener("player_state_changed", (state) => {
+    if (!state) return;
+    setIsPaused(state.paused);
+
+    const { current_track } = state.track_window;
+    setNowPlaying({
+      name: current_track.name,
+      artist: current_track.artists.map(a => a.name).join(", "),
+      albumArt: current_track.album.images[0]?.url,
+      duration: state.duration,
+    });
+
+    setProgress(state.position);
+  });
+
+  newPlayer.connect();
+  setPlayer(newPlayer); // Important!
+
+  // ✅ Sync Playback Listener — place it here!
+  socket.on("sync-play", async (data) => {
+    if (!newPlayer) return;
+
+    if (data.action === "play") {
+      await newPlayer.resume();
+    } else if (data.action === "pause") {
+      await newPlayer.pause();
+    } else if (data.action === "play-track" && data.uri) {
+      try {
+        await axios.put(
+          `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+          { uris: [data.uri] },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+      } catch (err) {
+        console.error("Track sync failed", err);
+      }
+    }
+  });
+};
+
   }, [token]);
 
   useEffect(() => {
@@ -75,11 +101,21 @@ const [progress, setProgress] = useState(0);
 }, [player]);
 
 
-  const togglePlayback = () => {
-    if (player) {
-      player.togglePlay();
-    }
-  };
+ const togglePlayback = () => {
+  if (player) {
+    player.getCurrentState().then(state => {
+      const isPaused = state?.paused;
+      if (isPaused) {
+        player.resume();
+        socket.emit("sync-play", { action: "play" });
+      } else {
+        player.pause();
+        socket.emit("sync-play", { action: "pause" });
+      }
+    });
+  }
+};
+
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -102,23 +138,27 @@ const [progress, setProgress] = useState(0);
     }
   };
 
-  const playTrack = async (uri) => {
-    if (!deviceId) return;
-    try {
-      await axios.put(
-        `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
-        { uris: [uri] },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-    } catch (err) {
-      console.error("Playback failed", err);
-    }
-  };
+ const playTrack = async (uri) => {
+  if (!deviceId) return;
+  try {
+    await axios.put(
+      `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+      { uris: [uri] },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    // Emit sync-play event
+    socket.emit("sync-play", { action: "play-track", uri });
+  } catch (err) {
+    console.error("Playback failed", err);
+  }
+};
+
 
   return (
     <div className="room-container">
