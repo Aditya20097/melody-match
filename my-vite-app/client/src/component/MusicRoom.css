@@ -107,7 +107,10 @@ button:hover {
   align-items: flex-start;
   gap: 0.75rem;
 }
-
+.chat-message.own-message {
+  justify-content: flex-end;
+  flex-direction: row-reverse;
+}
 
 .chat-avatar {
   width: 40px;
@@ -117,7 +120,7 @@ button:hover {
   border: 2px solid #1db954;
   flex-shrink: 0;
 }
-.chat-content {
+.chat-bubble {
   background: rgba(255, 255, 255, 0.07);
   padding: 0.75rem 1rem;
   border-radius: 1rem;
@@ -127,6 +130,9 @@ button:hover {
   flex-direction: column;
 }
 
+.chat-bubble.own-bubble {
+  background: rgba(29, 185, 84, 0.2); /* Spotify green tint */
+}
 .chat-header {
   display: flex;
   justify-content: space-between;

@@ -280,23 +280,36 @@ useEffect(() => {
         <h3>🧑‍🤝‍🧑 Room Users</h3>
        <div className="chat-container">
 
-   <div className="chat-messages">
-  {chatMessages.map((msg, index) => (
-    <div key={index} className="chat-message">
-      {msg.avatar && (
-        <img src={msg.avatar} alt="profile" className="chat-avatar" />
-      )}
-      <div className="chat-content">
-        <div className="chat-header">
-          <span className="chat-user">{msg.user}</span>
-          <span className="chat-time">{msg.time}</span>
+  <div className="chat-messages">
+  {chatMessages.map((msg, index) => {
+    const isOwn = msg.user === localStorage.getItem("first_name");
+
+    return (
+      <div
+        key={index}
+        className={`chat-message ${isOwn ? "own-message" : ""}`}
+      >
+        {!isOwn && msg.avatar && (
+          <img src={msg.avatar} alt="profile" className="chat-avatar" />
+        )}
+
+        <div className={`chat-bubble ${isOwn ? "own-bubble" : ""}`}>
+          <div className="chat-header">
+            <span className="chat-user">{msg.user}</span>
+            <span className="chat-time">{msg.time}</span>
+          </div>
+          <div className="chat-text">{msg.text}</div>
         </div>
-        <div className="chat-text">{msg.text}</div>
+
+        {isOwn && msg.avatar && (
+          <img src={msg.avatar} alt="profile" className="chat-avatar" />
+        )}
       </div>
-    </div>
-  ))}
+    );
+  })}
   <div ref={chatEndRef} />
 </div>
+
 
   <div className="chat-input">
     <input
