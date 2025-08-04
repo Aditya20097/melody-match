@@ -6,6 +6,8 @@ import socket from "./Socket";
 import "./MusicRoom.css";
 
 export default function Room() {
+  const userName = localStorage.getItem("first_name") || "User";
+  const userPic = localStorage.getItem("profile_url") || "";
   const [player, setPlayer] = useState(null);
   const [deviceId, setDeviceId] = useState(null);
   const [isPaused, setIsPaused] = useState(true);
@@ -16,6 +18,8 @@ const [progress, setProgress] = useState(0);
 const [chatMessages, setChatMessages] = useState([]);
 const [inputMessage, setInputMessage] = useState("");
 const chatEndRef = useRef(null);
+
+
 
 
   const token = localStorage.getItem("spotify_access_token");
@@ -176,7 +180,8 @@ socket.on("chat-message", (msg) => {
   const sendMessage = () => {
   if (inputMessage.trim()) {
     const msg = {
-      user: "User", // Later replace with real name
+      user: userName,
+      avatar: userPic,
       text: inputMessage.trim(),
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     };
@@ -274,15 +279,24 @@ useEffect(() => {
       <div className="room-right">
         <h3>🧑‍🤝‍🧑 Room Users</h3>
        <div className="chat-container">
-  <div className="chat-messages">
-    {chatMessages.map((msg, index) => (
-      <div key={index} className="chat-message">
-        <span className="chat-user">{msg.user}:</span> {msg.text}
-        <div className="chat-time">{msg.time}</div>
+
+   <div className="chat-messages">
+  {chatMessages.map((msg, index) => (
+    <div key={index} className="chat-message">
+      {msg.avatar && (
+        <img src={msg.avatar} alt="profile" className="chat-avatar" />
+      )}
+      <div className="chat-content">
+        <div className="chat-header">
+          <span className="chat-user">{msg.user}</span>
+          <span className="chat-time">{msg.time}</span>
+        </div>
+        <div className="chat-text">{msg.text}</div>
       </div>
-    ))}
-    <div ref={chatEndRef} />
-  </div>
+    </div>
+  ))}
+  <div ref={chatEndRef} />
+</div>
 
   <div className="chat-input">
     <input

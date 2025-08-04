@@ -28,21 +28,49 @@ const Authmodal = ({ setshowModal, isSignUp }) => {
         return;
       }
 
-      const response = await axios.post(
-        `${import.meta.env.VITE_SERVER_URL}/${isSignUp ? "signup" : "login"}`,
-        { email, password }
-      );
+    //   const response = await axios.post(
+    //     `${import.meta.env.VITE_SERVER_URL}/${isSignUp ? "signup" : "login"}`,
+    //     { email, password }
+    //   );
 
-      setCookie("AuthToken", response.data.token);
-      setCookie("UserId", response.data.userId);
+    //   setCookie("AuthToken", response.data.token);
+    //   setCookie("UserId", response.data.userId);
 
-      const success = response.status === 201;
+    //   const success = response.status === 201;
 
-      if (success && isSignUp) navigate("/");
-      if (success && !isSignUp) navigate("/");
+    //   if (success && isSignUp) navigate("/");
+    //   if (success && !isSignUp) navigate("/");
 
-      window.location.reload();
-    } catch (error) {
+    //   window.location.reload();
+   const response = await axios.post(
+  `${import.meta.env.VITE_SERVER_URL}/${isSignUp ? "signup" : "login"}`,
+  { email, password }
+);
+
+setCookie("AuthToken", response.data.token);
+setCookie("UserId", response.data.userId);
+
+const success = response.status === 201;
+
+if (success) {
+  // ✅ Fetch user profile using query param
+  const userRes = await axios.get(
+    `${import.meta.env.VITE_SERVER_URL}/user`,
+    { params: { userId: response.data.userId } }
+  );
+
+  const user = userRes.data;
+
+  // ✅ Save name + profile image to localStorage
+  localStorage.setItem("first_name", user.first_name);
+  localStorage.setItem("profile_url", user.url);
+
+  navigate("/");
+  window.location.reload();
+}
+
+
+     } catch (error) {
       (error);
       setError("Something went wrong. Try again.");
     }
