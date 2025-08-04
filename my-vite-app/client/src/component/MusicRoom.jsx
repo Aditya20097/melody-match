@@ -325,10 +325,7 @@ const handleInputChange = (e) => {
           <div className="chat-text">{msg.text}</div>
         </div>
 
-        {someoneTyping && (
-  <div className="typing-indicator">📝 {someoneTyping} is typing...</div>
-)}
-
+    
 
         {isOwn && msg.avatar && (
           <img src={msg.avatar} alt="profile" className="chat-avatar" />
@@ -338,6 +335,10 @@ const handleInputChange = (e) => {
   })}
   <div ref={chatEndRef} />
 </div>
+
+   {someoneTyping && (
+  <div className="typing-indicator">📝 {someoneTyping} is typing...</div>
+)}
 
 
   <div className="chat-input-container">
