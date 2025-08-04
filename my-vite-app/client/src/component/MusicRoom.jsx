@@ -201,7 +201,7 @@ useEffect(() => {
 
 useEffect(() => {
   socket.on("typing", (data) => {
-    if (data.user !== currentUser) {
+    if (data.user !== userName) {
       setSomeoneTyping(data.user);
     }
   });
@@ -216,7 +216,8 @@ useEffect(() => {
 const handleInputChange = (e) => {
   setInputMessage(e.target.value);
   setIsTyping(true);
-  socket.emit("typing", { user: currentUser });
+  
+    socket.emit("typing", { user: userName }); 
 };
 
 
