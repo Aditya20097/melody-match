@@ -18,6 +18,8 @@ const [progress, setProgress] = useState(0);
 const [chatMessages, setChatMessages] = useState([]);
 const [inputMessage, setInputMessage] = useState("");
 const chatEndRef = useRef(null);
+const [isTyping, setIsTyping] = useState(false);
+const [someoneTyping, setSomeoneTyping] = useState(null);
 
 
 
@@ -197,6 +199,27 @@ useEffect(() => {
   }
 }, [chatMessages]);
 
+useEffect(() => {
+  socket.on("typing", (data) => {
+    if (data.user !== currentUser) {
+      setSomeoneTyping(data.user);
+    }
+  });
+
+  const clearTyping = setInterval(() => {
+    setSomeoneTyping(null);
+  }, 2000); // clear after 2 sec
+
+  return () => clearInterval(clearTyping);
+}, []);
+
+const handleInputChange = (e) => {
+  setInputMessage(e.target.value);
+  setIsTyping(true);
+  socket.emit("typing", { user: currentUser });
+};
+
+
   return (
     <div className="room-container">
       {/* Left: Search */}
@@ -301,6 +324,11 @@ useEffect(() => {
           <div className="chat-text">{msg.text}</div>
         </div>
 
+        {someoneTyping && (
+  <div className="typing-indicator">📝 {someoneTyping} is typing...</div>
+)}
+
+
         {isOwn && msg.avatar && (
           <img src={msg.avatar} alt="profile" className="chat-avatar" />
         )}
@@ -315,7 +343,7 @@ useEffect(() => {
     <input
       type="text"
       value={inputMessage}
-      onChange={(e) => setInputMessage(e.target.value)}
+      onChange={handleInputChange}
       placeholder="Type a message..."
       onKeyDown={(e) => e.key === "Enter" && sendMessage()}
     />

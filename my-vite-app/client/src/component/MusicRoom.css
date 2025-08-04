@@ -186,3 +186,10 @@ button:hover {
   font-weight: bold;
   cursor: pointer;
 }
+.typing-indicator {
+  font-size: 0.85rem;
+  color: #ccc;
+  padding-left: 1rem;
+  margin-bottom: 0.5rem;
+  font-style: italic;
+}
