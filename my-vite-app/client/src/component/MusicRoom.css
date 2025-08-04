@@ -29,8 +29,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start; /* change from center */
+  padding-top: 2rem;
 }
+
 
 .room-right {
   width: 25%;
