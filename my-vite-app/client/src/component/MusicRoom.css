@@ -1,0 +1,87 @@
+.room-container {
+  display: flex;
+  height: 100vh;
+  background: linear-gradient(135deg, #120024, #3a0066);
+  color: white;
+  font-family: 'Poppins', sans-serif;
+  gap: 1rem;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.room-left,
+.room-center,
+.room-right {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.room-left {
+  width: 25%;
+}
+
+.room-center {
+  width: 50%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.room-right {
+  width: 25%;
+}
+
+.room-center h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+input[type="text"] {
+  padding: 0.6rem 1rem;
+  width: 100%;
+  border-radius: 1rem;
+  border: none;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  outline: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+button {
+  background: #1db954;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  font-weight: bold;
+  transition: 0.2s ease;
+}
+
+button:hover {
+  background: #1ed760;
+}
+
+.track-card {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 1rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.track-card img {
+  width: 64px;
+  height: 64px;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
