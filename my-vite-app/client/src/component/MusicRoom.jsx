@@ -97,73 +97,149 @@ export default function Room() {
   };
 
   return (
-    <div style={{ padding: "2rem", color: "white", fontFamily: "Poppins, sans-serif" }}>
-      <h2>🎧 Spotify Player Room</h2>
+   <div
+  style={{
+    minHeight: "100vh",
+    background: "linear-gradient(135deg, #1e003b, #370062)",
+    padding: "2rem",
+    color: "#fff",
+    fontFamily: "Poppins, sans-serif",
+  }}
+>
+  <h1 style={{ fontSize: "2.5rem", marginBottom: "1rem" }}>🎧 Spotify Player Room</h1>
 
-      {deviceId ? (
-        <>
-          <p>✅ Player connected: <b>{deviceId}</b></p>
-          <button
-            onClick={togglePlayback}
+  {deviceId ? (
+    <>
+      <p style={{ color: "#7fffd4" }}>
+        ✅ Player connected:{" "}
+        <span style={{ fontWeight: "bold" }}>{deviceId}</span>
+      </p>
+
+      <button
+        onClick={togglePlayback}
+        style={{
+          background: "rgba(255, 255, 255, 0.1)",
+          border: "1px solid #fff",
+          borderRadius: "2rem",
+          padding: "0.8rem 1.6rem",
+          color: "white",
+          cursor: "pointer",
+          fontSize: "1rem",
+          marginTop: "1rem",
+          backdropFilter: "blur(6px)",
+        }}
+      >
+        {isPaused ? "▶️ Play" : "⏸ Pause"}
+      </button>
+
+      {/* Search UI */}
+      <form
+        onSubmit={handleSearch}
+        style={{
+          marginTop: "2rem",
+          display: "flex",
+          gap: "1rem",
+          flexWrap: "wrap",
+          alignItems: "center",
+        }}
+      >
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search a song..."
+          style={{
+            padding: "0.8rem 1.2rem",
+            borderRadius: "2rem",
+            border: "none",
+            width: "250px",
+            fontSize: "1rem",
+            outline: "none",
+            boxShadow: "0 0 8px rgba(255,255,255,0.2)",
+          }}
+        />
+        <button
+          type="submit"
+          style={{
+            padding: "0.8rem 1.4rem",
+            borderRadius: "2rem",
+            background: "linear-gradient(135deg, #ff5f6d, #ffc371)",
+            color: "#fff",
+            fontWeight: "bold",
+            fontSize: "1rem",
+            border: "none",
+            cursor: "pointer",
+            transition: "transform 0.2s ease",
+          }}
+        >
+          🔍 Search
+        </button>
+      </form>
+
+      {/* Search results */}
+      <div
+        style={{
+          marginTop: "2rem",
+          display: "grid",
+          gap: "1.5rem",
+          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+        }}
+      >
+        {results.map((track) => (
+          <div
+            key={track.id}
             style={{
-              background: "rgba(255,255,255,0.1)",
-              border: "1px solid #fff",
-              borderRadius: "1rem",
-              padding: "0.6rem 1.2rem",
-              color: "white",
-              cursor: "pointer",
-              fontSize: "1rem",
-              marginTop: "1rem",
+              background: "rgba(255, 255, 255, 0.08)",
+              borderRadius: "1.5rem",
+              padding: "1rem",
+              display: "flex",
+              alignItems: "center",
+              gap: "1rem",
+              backdropFilter: "blur(8px)",
+              boxShadow: "0 8px 20px rgba(0, 0, 0, 0.3)",
+              transition: "transform 0.2s ease",
             }}
           >
-            {isPaused ? "▶️ Play" : "⏸ Pause"}
-          </button>
-
-          {/* Search UI */}
-          <form onSubmit={handleSearch} style={{ marginTop: "2rem" }}>
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search a song..."
+            <img
+              src={track.album.images[0]?.url}
+              alt={track.name}
               style={{
-                padding: "0.6rem",
-                borderRadius: "1rem",
-                border: "1px solid #ccc",
-                width: "250px",
-                marginRight: "1rem",
+                width: "64px",
+                height: "64px",
+                borderRadius: "0.8rem",
+                objectFit: "cover",
               }}
             />
-            <button type="submit" style={{ padding: "0.6rem 1rem", borderRadius: "1rem" }}>
-              🔍 Search
+            <div style={{ flex: 1 }}>
+              <div style={{ fontWeight: "bold", fontSize: "1rem" }}>{track.name}</div>
+              <div style={{ color: "#ccc", fontSize: "0.9rem" }}>
+                by {track.artists[0].name}
+              </div>
+            </div>
+            <button
+              onClick={() => playTrack(track.uri)}
+              style={{
+                padding: "0.6rem 1rem",
+                borderRadius: "2rem",
+                background: "linear-gradient(135deg, #1db954, #1ed760)",
+                border: "none",
+                color: "#fff",
+                cursor: "pointer",
+                fontWeight: "bold",
+              }}
+            >
+              ▶️ Play
             </button>
-          </form>
+          </div>
+        ))}
+      </div>
+    </>
+  ) : (
+    <p style={{ marginTop: "3rem", fontSize: "1.2rem", color: "#bbb" }}>
+      🎶 Connecting to Spotify...
+    </p>
+  )}
+</div>
 
-          {/* Search results */}
-          <ul style={{ marginTop: "1rem" }}>
-            {results.map((track) => (
-              <li key={track.id} style={{ marginBottom: "1rem", listStyle: "none" }}>
-                <div>
-                  <strong>{track.name}</strong> by {track.artists[0].name}
-                  <button
-                    onClick={() => playTrack(track.uri)}
-                    style={{
-                      marginLeft: "1rem",
-                      padding: "0.3rem 0.6rem",
-                      borderRadius: "0.5rem",
-                      cursor: "pointer",
-                    }}
-                  >
-                    ▶️ Play
-                  </button>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </>
-      ) : (
-        <p>🎶 Connecting to Spotify...</p>
-      )}
-    </div>
   );
 }
