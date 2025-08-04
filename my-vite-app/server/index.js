@@ -438,6 +438,22 @@ io.on("connection", (socket) => {
   });
 });
 
+io.on("connection", (socket) => {
+  console.log("🧑‍💻 User connected:", socket.id);
+
+  socket.on("chat-message", (msg) => {
+    socket.broadcast.emit("chat-message", msg); // send to others
+  });
+
+  socket.on("sync-play", (data) => {
+    socket.broadcast.emit("sync-play", data);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("❌ User disconnected:", socket.id);
+  });
+});
+
 
 
 
