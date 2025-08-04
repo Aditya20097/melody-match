@@ -302,6 +302,7 @@ const handleInputChange = (e) => {
       <div className="room-right">
         <h3>🧑‍🤝‍🧑 Room Users</h3>
        <div className="chat-container">
+        <div className="chat-panel">
 
   <div className="chat-messages">
   {chatMessages.map((msg, index) => {
@@ -353,6 +354,7 @@ const handleInputChange = (e) => {
 
 </div>
 
+      </div>
       </div>
     </div>
   );
