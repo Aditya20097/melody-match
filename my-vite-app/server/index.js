@@ -394,50 +394,22 @@ app.post("/message", async (req, res) => {
 //   });
 // });
 
+
 io.on("connection", (socket) => {
-  ("🟢 User connected:", socket.id);
+  console.log("🧑‍💻 User connected:", socket.id);
 
-  // 🗨️ Chat message logic
-  socket.on("sendMessage", (msgObj) => {
-    io.emit("receiveMessage", msgObj);
+  socket.on("chat-message", (msg) => {
+    socket.broadcast.emit("chat-message", msg); // send to others
   });
 
-  // 💬 Match-based chat room (1-1)
-  socket.on("join_room", (room) => {
-    socket.join(room);
-    (`User joined chat room: ${room}`);
-  });
-
-  socket.on("send_message", (data) => {
-    io.to(data.room).emit("receive_message", data);
-  });
-
-  // 🎵 Group music room logic
-  socket.on("join_music_room", (roomId) => {
-    socket.join(roomId);
-    (`User ${socket.id} joined music room ${roomId}`);
-  });
-
-  socket.on("play_track", ({ roomId, uri }) => {
-    socket.to(roomId).emit("play_track", uri);
-    (`Track played in room ${roomId}: ${uri}`);
-  });
-
-  socket.on("pause_track", (roomId) => {
-    socket.to(roomId).emit("pause_track");
-    (`Track paused in room ${roomId}`);
-  });
-
-  // Optional: sync seek position
-  socket.on("sync_seek", ({ roomId, position_ms }) => {
-    socket.to(roomId).emit("sync_seek", position_ms);
+  socket.on("sync-play", (data) => {
+    socket.broadcast.emit("sync-play", data);
   });
 
   socket.on("disconnect", () => {
-    ("🔴 User disconnected:", socket.id);
+    console.log("❌ User disconnected:", socket.id);
   });
 });
-
 
 
 

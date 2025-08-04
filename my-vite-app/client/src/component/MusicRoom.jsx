@@ -1,6 +1,6 @@
 
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import socket from "./Socket";
 import "./MusicRoom.css";
@@ -13,6 +13,10 @@ export default function Room() {
   const [results, setResults] = useState([]);
   const [nowPlaying, setNowPlaying] = useState(null);
 const [progress, setProgress] = useState(0);
+const [chatMessages, setChatMessages] = useState([]);
+const [inputMessage, setInputMessage] = useState("");
+const chatEndRef = useRef(null);
+
 
   const token = localStorage.getItem("spotify_access_token");
 
@@ -84,6 +88,14 @@ const [progress, setProgress] = useState(0);
       }
     }
   });
+  
+
+// Receive message
+socket.on("chat-message", (msg) => {
+  setChatMessages(prev => [...prev, msg]);
+});
+
+
 };
 
   }, [token]);
@@ -115,6 +127,8 @@ const [progress, setProgress] = useState(0);
     });
   }
 };
+
+
 
 
   const handleSearch = async (e) => {
@@ -159,6 +173,24 @@ const [progress, setProgress] = useState(0);
   }
 };
 
+  const sendMessage = () => {
+  if (inputMessage.trim()) {
+    const msg = {
+      user: "User", // Later replace with real name
+      text: inputMessage.trim(),
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+    };
+    socket.emit("chat-message", msg);
+    setChatMessages(prev => [...prev, msg]); // Optional: instantly update UI
+    setInputMessage("");
+  }
+};
+
+useEffect(() => {
+  if (chatEndRef.current) {
+    chatEndRef.current.scrollIntoView({ behavior: "smooth" });
+  }
+}, [chatMessages]);
 
   return (
     <div className="room-container">
@@ -241,8 +273,29 @@ const [progress, setProgress] = useState(0);
       {/* Right: Users / Chat */}
       <div className="room-right">
         <h3>🧑‍🤝‍🧑 Room Users</h3>
-        <p>💬 Chat and sync playback coming soon!</p>
-        {/* Future: socket.io connected user list */}
+       <div className="chat-container">
+  <div className="chat-messages">
+    {chatMessages.map((msg, index) => (
+      <div key={index} className="chat-message">
+        <span className="chat-user">{msg.user}:</span> {msg.text}
+        <div className="chat-time">{msg.time}</div>
+      </div>
+    ))}
+    <div ref={chatEndRef} />
+  </div>
+
+  <div className="chat-input">
+    <input
+      type="text"
+      value={inputMessage}
+      onChange={(e) => setInputMessage(e.target.value)}
+      placeholder="Type a message..."
+      onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+    />
+    <button onClick={sendMessage}>Send</button>
+  </div>
+</div>
+
       </div>
     </div>
   );
