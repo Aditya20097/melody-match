@@ -2,9 +2,7 @@
 .classy-dashboard {
   display: flex;
   height: 100vh;
-  background: #312e75;
-background: linear-gradient(90deg,rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
-
+  background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
   color: #f0eaff;
   font-family: 'Poppins', sans-serif;
   overflow: hidden;
@@ -13,8 +11,7 @@ background: linear-gradient(90deg,rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1)
 /* ======= Sidebar ======= */
 .sidebar {
   width: 300px;
- background: linear-gradient(135deg, #1d002b, #6a0572, #e100ff, #ff5f6d);
-
+  background: linear-gradient(135deg, #1d002b, #6a0572, #e100ff, #ff5f6d);
   backdrop-filter: blur(12px);
   border-right: 1px solid rgba(255, 255, 255, 0.15);
   padding: 2rem 1rem;
@@ -56,9 +53,12 @@ background: linear-gradient(90deg,rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1)
 .main-view {
   flex: 1;
   padding: 2rem;
+  margin-right: 320px; /* Reserve space for chat panel */
   display: flex;
   flex-direction: column;
 }
+
+
 
 .headline {
   font-size: 2.2rem;
@@ -69,82 +69,99 @@ background: linear-gradient(90deg,rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1)
 
 .swipe-section {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
   gap: 1.5rem;
-  overflow-y: auto;
+  justify-items: center;
   padding-bottom: 2rem;
 }
 
+
+
+
 /* ======= User Card ======= */
 .user-card {
-background: linear-gradient(135deg, #1d002b, #6a0572, #e100ff, #ff5f6d);
-
-
-
+  background: linear-gradient(135deg, #ff0844, #ffb199);
   border-radius: 20px;
   padding: 1rem;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(10px);
-  transition: transform 0.3s;
-}
-
-.user-card:hover {
-  transform: scale(1.02);
-}
-
-.card-img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 15px;
-  margin-bottom: 1rem;
-}
-
-.card-content h3 {
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
-}
-
-.trait-chips {
- background: linear-gradient(45deg, #9F44D3, #6C2BD9);
-
-  border-radius: 16px;
-  display: inline-block;
-  padding: 0.3rem 0.75rem;
-  margin: 0.2rem;
-  font-size: 0.9rem;
-  color: #ffeaff;
-}
-
-.card-buttons {
+  width: 220px;
   display: flex;
-  justify-content: space-around;
-  margin-top: 1rem;
-}
-
-.btn {
-  padding: 0.5rem 1rem;
-  border-radius: 12px;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
   transition: transform 0.2s ease;
 }
 
-.btn.skip {
- background: #CB2D3E;
+.user-card:hover {
+  transform: translateY(-4px);
+}
 
-  color: #ffeaff;
+.user-header {
+  text-align: center;
+}
+
+.profile-thumb {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.6rem;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
+
+
+.card-content h3 {
+  font-size: 1rem;
+  margin: 0;
+  color: #fff;
+}
+.user-header h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+}
+.trait-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.5rem 0 0.75rem;
+}
+
+.chip {
+  background: #fff;
+  color: #333;
+  font-size: 0.65rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+.card-buttons {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 0.3rem;
+}
+
+.btn {
+  padding: 0.3rem 0.7rem;
+  font-size: 0.7rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+.btn.skip {
+  background: #CB2D3E;
+  color: white;
 }
 
 .btn.match {
- background: #EE0979;
-
+  background: #EE0979;
   color: white;
 }
 
 .btn:hover {
-  transform: scale(1.1);
+  transform: scale(1.05);
 }
 
 /* ======= Music Room Button ======= */
@@ -152,17 +169,41 @@ background: linear-gradient(135deg, #1d002b, #6a0572, #e100ff, #ff5f6d);
   margin-top: auto;
   text-align: center;
 }
-
-.join-room {
-  background: linear-gradient(90deg, #8900f2, #ff00c8);
-  color: white;
-  padding: 0.75rem 2rem;
-  border: none;
-  border-radius: 20px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: box-shadow 0.3s ease;
+/* Fixed chat panel */
+.chat-panel {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;             /* Stick to bottom */
+  width: 320px;
+  max-height: 90vh;         /* 👈 Ensures it never overflows vertically */
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.03));
+  backdrop-filter: blur(16px);
+  border-radius: 16px;
+  box-shadow: -4px 4px 20px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  z-index: 1000;
+  overflow: hidden;         /* Prevent internal overflow */
 }
+
+
+
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+
+
+
 
 .join-room:hover {
   box-shadow: 0 0 16px #ff00c855;

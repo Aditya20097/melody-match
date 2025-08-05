@@ -69,13 +69,15 @@ form {
 .photo-section {
   align-items: center;
 }
-
 .photo-preview img {
   margin-top: 10px;
-  max-width: 100%;
+  width: 200px;          /* fixed width */
+  height: 250px;         /* fixed height */
+  object-fit: cover;     /* maintain aspect ratio and crop */
   border-radius: 15px;
   box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-}  
+}
+
 
 
 

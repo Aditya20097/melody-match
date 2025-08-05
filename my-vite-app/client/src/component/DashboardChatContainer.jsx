@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./DashboardChatContainer.css";
 
-const DashboardChatContainer = ({ user, matchedUser }) => {
+const DashboardChatContainer = ({ user, matchedUser , onClose }) => {
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState([]);
 
@@ -63,6 +63,7 @@ const DashboardChatContainer = ({ user, matchedUser }) => {
   return (
     <div className="chat-container">
       <h3>Chat with {matchedUser.first_name}</h3>
+       <button className="close-chat" onClick={onClose}>✖</button>
       <div className="chat-box">
         {chat.map((msg, index) => (
           <div
