@@ -1,73 +1,32 @@
 
 
-/* 
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items:center;
-  padding: 1rem 2rem;
-  width: 97%;
-  position: relative;
-  z-index: 10;
-}
-
-.logo {
-  height: 45px;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
-.nav-links a {
-  color: white;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 1rem;
-  transition: color 0.3s ease;
-}
-
-.nav-links a:hover {
-  color: #ff64b0;
-}
-
-.nav-button {
-  background-color: #ff1e74;
-  color: white;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 20px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.nav-button:hover {
-  background-color: #e60063;
-} */
-
 .navbar {
   display: flex;
   align-items: center;
-  
   justify-content: space-between;
-  padding: 16px 32px;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: linear-gradient(to right, #7f1d1d, #471548); /* update gradient */
+  padding: 14px 28px;
+  position: static;
+background: linear-gradient(90deg, #1d002b, #6a0572, #e100ff, #ff5f6d);
+
+
+
+
+
+
+
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
+/* Logo */
 .logo {
-  height: 40px;
+  height: 42px;
 }
 
+/* Left/Center/Right Layout */
 .nav-section {
   display: flex;
   align-items: center;
-  
 }
 
 .nav-left {
@@ -77,37 +36,47 @@
 .nav-center {
   flex: 2;
   justify-content: center;
-  gap: 10px;
-}
-
-.nav-center a {
-  color: #ffffff;
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: 500;
-  transition: color 0.3s;
-}
-
-.nav-center a:hover {
-  color: #f472b6;
+  display: flex;
+  gap: 18px;
 }
 
 .nav-right {
   flex: 1;
+  display: flex;
   justify-content: flex-end;
 }
 
-.nav-button {
-  background-color: #f472b6;
-  color: white;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 20px;
+/* Nav links */
+.nav-center a {
+  color: #fff;
+  text-decoration: none;
   font-size: 16px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.nav-center a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ff80ab;
+}
+
+/* Call to Action Button */
+.nav-button {
+  background: linear-gradient(135deg, #ff5e8e, #ff9966);
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 24px;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
 }
 
 .nav-button:hover {
-  background-color: #d63f7f;
+  background: linear-gradient(135deg, #ff9966, #ff5e8e);
+  transform: translateY(-1px);
 }

@@ -216,16 +216,17 @@ app.get("/gendered-users", async (req, res) => {
   let score = 0;
 
   const commonSongs = currentUser.favoriteSongs?.filter(song =>
-    user.favoriteSongs?.includes(song)
-  ) || [];
+  user.favoriteSongs?.some(uSong => uSong.toLowerCase() === song.toLowerCase())
+) || [];
 
-  const commonArtists = currentUser.favoriteArtists?.filter(artist =>
-    user.favoriteArtists?.includes(artist)
-  ) || [];
+const commonArtists = currentUser.favoriteArtists?.filter(artist =>
+  user.favoriteArtists?.some(uArtist => uArtist.toLowerCase() === artist.toLowerCase())
+) || [];
 
-  const commonGenres = currentUser.musicPreferences?.filter(genre =>
-    user.musicPreferences?.includes(genre)
-  ) || [];
+const commonGenres = currentUser.musicPreferences?.filter(genre =>
+  user.musicPreferences?.some(uGenre => uGenre.toLowerCase() === genre.toLowerCase())
+) || [];
+
 
   if (commonSongs.length > 0) score++;
   if (commonArtists.length > 0) score++;
@@ -271,15 +272,16 @@ app.put("/user", async (req, res) => {
         url: formData.url,
         about: formData.about,
         matches: formData.matches,
-        favoriteSongs: Array.isArray(formData.favoriteSongs)
-          ? formData.favoriteSongs
-          : [],
-        favoriteArtists: Array.isArray(formData.favoriteArtists)
-          ? formData.favoriteArtists
-          : [],
-        musicPreferences: Array.isArray(formData.musicPreferences)
-          ? formData.musicPreferences
-          : []
+     favoriteSongs: Array.isArray(formData.favoriteSongs)
+  ? formData.favoriteSongs.map(s => s.toLowerCase())
+  : [],
+favoriteArtists: Array.isArray(formData.favoriteArtists)
+  ? formData.favoriteArtists.map(a => a.toLowerCase())
+  : [],
+musicPreferences: Array.isArray(formData.musicPreferences)
+  ? formData.musicPreferences.map(g => g.toLowerCase())
+  : []
+
       }
     };
 

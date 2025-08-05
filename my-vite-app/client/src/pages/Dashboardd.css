@@ -2,9 +2,9 @@
 .classy-dashboard {
   display: flex;
   height: 100vh;
-  /* background: linear-gradient(135deg, #1e002c, #4b006e); */
-  /* background:  linear-gradient(315deg, #251020ff, #220F21ff, #150825ff, #200E21ff, #110723ff); */
-  background: linear-gradient(90deg, #201729ff, #1E1529ff, #110720ff, #1F1A2Aff, #241A2Dff);;
+  background: #312e75;
+background: linear-gradient(90deg,rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
+
   color: #f0eaff;
   font-family: 'Poppins', sans-serif;
   overflow: hidden;
@@ -13,7 +13,8 @@
 /* ======= Sidebar ======= */
 .sidebar {
   width: 300px;
-  background:linear-gradient(90deg, #201729ff, #1E1529ff, #110720ff, #1F1A2Aff, #241A2Dff);
+ background: linear-gradient(135deg, #1d002b, #6a0572, #e100ff, #ff5f6d);
+
   backdrop-filter: blur(12px);
   border-right: 1px solid rgba(255, 255, 255, 0.15);
   padding: 2rem 1rem;
@@ -76,7 +77,10 @@
 
 /* ======= User Card ======= */
 .user-card {
-  background: linear-gradient(90deg, #201729ff, #1E1529ff, #110720ff, #1F1A2Aff, #241A2Dff);
+background: linear-gradient(135deg, #1d002b, #6a0572, #e100ff, #ff5f6d);
+
+
+
   border-radius: 20px;
   padding: 1rem;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
@@ -101,8 +105,9 @@
   margin-bottom: 0.5rem;
 }
 
-.trait-chip {
-  background:  rgba(20, 8, 33, 1);
+.trait-chips {
+ background: linear-gradient(45deg, #9F44D3, #6C2BD9);
+
   border-radius: 16px;
   display: inline-block;
   padding: 0.3rem 0.75rem;
@@ -127,12 +132,14 @@
 }
 
 .btn.skip {
-  background:rgba(36, 26, 45, 1);
+ background: #CB2D3E;
+
   color: #ffeaff;
 }
 
 .btn.match {
-  background: rgb(36, 33, 36);
+ background: #EE0979;
+
   color: white;
 }
 

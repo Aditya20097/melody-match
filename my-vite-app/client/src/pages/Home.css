@@ -125,7 +125,16 @@ body, html {
 /* Gradient background for main container */
 .overlay {
   min-height: 100vh;
-  background: linear-gradient(135deg, #8a0303, #1e0b2e, #3b004f);
+background: linear-gradient(90deg, #2b086e, #6a0dad, #ff007f);
+
+
+
+
+
+
+
+
+
   display: flex;
   flex-direction: column;
   color: white;

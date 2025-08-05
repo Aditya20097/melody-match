@@ -76,73 +76,42 @@ if (success) {
     }
   };
 
-  return (
-    <>
-     <div className="modal-backdrop" onClick={handleClick}></div>
-      <div className="auth-model">
-        <div className="close-icon" onClick={handleClick}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="24px"
-            viewBox="0 -960 960 960"
-            width="24px"
-            fill="#fff"
-          >
-            <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
-          </svg>
-        </div>
+return (
+  <>
+    <div className="modal-backdrop" onClick={handleClick}></div>
 
-        <h2>{isSignUp ? "CREATE ACCOUNT" : "LOG IN"}</h2>
-        <p>
-          By clicking {isSignUp ? "create account" : "log in"}, you agree to our
-          terms and privacy policies.
-        </p>
-
-        <div className="auth-form-container">
-          <form onSubmit={handleSubmit}>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Email"
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
-
-            <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Password"
-              required
-              onChange={(e) => setPassword(e.target.value)}
-            />
-
-            {isSignUp && (
-              <input
-                type="password"
-                id="password-check"
-                name="password-check"
-                placeholder="Confirm Password"
-                required
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-            )}
-
-            <input
-              className="secondary-button"
-              type="submit"
-              value={isSignUp ? "Create Account" : "Log In"}
-            />
-            <p className="error-message">{error}</p>
-          </form>
-        </div>
-
-        <hr />
-        <h2>GET THE APP</h2>
+    <div className="auth-modal vibrant-theme">
+      <div className="close-icon" onClick={handleClick}>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#fff">
+          <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
+        </svg>
       </div>
-    </>
-  );
+
+      <h2 className="modal-title">{isSignUp ? "Create Account" : "Log In"}</h2>
+      <p className="modal-subtitle">
+        By clicking <strong>{isSignUp ? "create account" : "log in"}</strong>, you agree to our
+        <span className="link"> Terms </span> and <span className="link"> Privacy Policy</span>.
+      </p>
+
+      <div className="auth-form-container">
+        <form onSubmit={handleSubmit}>
+          <input type="email" name="email" placeholder="📧 Email" required onChange={(e) => setEmail(e.target.value)} />
+          <input type="password" name="password" placeholder="🔒 Password" required onChange={(e) => setPassword(e.target.value)} />
+          {isSignUp && (
+            <input type="password" name="password-check" placeholder="🔁 Confirm Password" required onChange={(e) => setConfirmPassword(e.target.value)} />
+          )}
+          <input className="submit-button" type="submit" value={isSignUp ? "🎵 Create Account" : "🎶 Log In"} />
+          <p className="error-message">{error}</p>
+        </form>
+      </div>
+
+      <hr className="divider" />
+      <h3 className="get-app-text">🎧 Get the App</h3>
+    </div>
+  </>
+);
+
+
 };
 
 export default Authmodal;
