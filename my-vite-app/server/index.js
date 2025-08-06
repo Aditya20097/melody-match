@@ -361,105 +361,127 @@ app.post("/message", async (req, res) => {
 
 
 
+
+
 // io.on("connection", (socket) => {
-//   ("User connected:", socket.id);
+//   ("🟢 User connected:", socket.id);
 
-
-// socket.on("sendMessage", (msgObj) => {
-//   io.emit("receiveMessage", msgObj);
-// });
-
-
-//   socket.on("disconnect", () => {
-//     ("User disconnected:", socket.id);
+//   // 🗨️ Chat message logic
+//   socket.on("sendMessage", (msgObj) => {
+//     io.emit("receiveMessage", msgObj);
 //   });
-// });
 
-
-
-
-
-// io.on("connection", (socket) => {
-//   ("User connected");
-
+//   // 💬 Match-based chat room (1-1)
 //   socket.on("join_room", (room) => {
 //     socket.join(room);
-//     (`User joined room: ${room}`);
+//     (`User joined chat room: ${room}`);
 //   });
 
 //   socket.on("send_message", (data) => {
 //     io.to(data.room).emit("receive_message", data);
 //   });
 
+//   // 🎵 Group music room logic
+//   socket.on("join_music_room", (roomId) => {
+//     socket.join(roomId);
+//     (`User ${socket.id} joined music room ${roomId}`);
+//   });
+
+//   socket.on("play_track", ({ roomId, uri }) => {
+//     socket.to(roomId).emit("play_track", uri);
+//     (`Track played in room ${roomId}: ${uri}`);
+//   });
+
+//   socket.on("pause_track", (roomId) => {
+//     socket.to(roomId).emit("pause_track");
+//     (`Track paused in room ${roomId}`);
+//   });
+
+//   // Optional: sync seek position
+//   socket.on("sync_seek", ({ roomId, position_ms }) => {
+//     socket.to(roomId).emit("sync_seek", position_ms);
+//   });
+
 //   socket.on("disconnect", () => {
-//     ("User disconnected");
+//     ("🔴 User disconnected:", socket.id);
+//   });
+// });
+
+// io.on("connection", (socket) => {
+//   console.log("🧑‍💻 User connected:", socket.id);
+
+//   socket.on("chat-message", (msg) => {
+//     socket.broadcast.emit("chat-message", msg); // send to others
+//   });
+
+//   socket.on("sync-play", (data) => {
+//     socket.broadcast.emit("sync-play", data);
+//   });
+
+//   socket.on("disconnect", () => {
+//     console.log("❌ User disconnected:", socket.id);
 //   });
 // });
 
 io.on("connection", (socket) => {
-  ("🟢 User connected:", socket.id);
+  console.log("🟢 User connected:", socket.id);
 
-  // 🗨️ Chat message logic
-  socket.on("sendMessage", (msgObj) => {
-    io.emit("receiveMessage", msgObj);
-  });
-
-  // 💬 Match-based chat room (1-1)
-  socket.on("join_room", (room) => {
-    socket.join(room);
-    (`User joined chat room: ${room}`);
-  });
-
-  socket.on("send_message", (data) => {
-    io.to(data.room).emit("receive_message", data);
-  });
-
-  // 🎵 Group music room logic
+  /** -------------------------------
+   * 🎧 GROUP MUSIC ROOM (Room.jsx)
+   --------------------------------- */
   socket.on("join_music_room", (roomId) => {
     socket.join(roomId);
-    (`User ${socket.id} joined music room ${roomId}`);
+    socket.roomId = roomId; // store roomId on socket object
+    console.log(`🎵 User ${socket.id} joined group music room: ${roomId}`);
+  });
+
+  socket.on("chat-message", ({ roomId, ...msg }) => {
+    io.to(roomId).emit("chat-message", msg); // broadcast only within music room
+  });
+
+  socket.on("typing", ({ roomId, user }) => {
+    socket.to(roomId).emit("typing", { user }); // send to all others in the room
   });
 
   socket.on("play_track", ({ roomId, uri }) => {
     socket.to(roomId).emit("play_track", uri);
-    (`Track played in room ${roomId}: ${uri}`);
+    console.log(`▶️ Track played in room ${roomId}: ${uri}`);
   });
 
   socket.on("pause_track", (roomId) => {
     socket.to(roomId).emit("pause_track");
-    (`Track paused in room ${roomId}`);
+    console.log(`⏸️ Track paused in room ${roomId}`);
   });
 
-  // Optional: sync seek position
   socket.on("sync_seek", ({ roomId, position_ms }) => {
     socket.to(roomId).emit("sync_seek", position_ms);
   });
 
-  socket.on("disconnect", () => {
-    ("🔴 User disconnected:", socket.id);
-  });
-});
-
-io.on("connection", (socket) => {
-  console.log("🧑‍💻 User connected:", socket.id);
-
-  socket.on("chat-message", (msg) => {
-    socket.broadcast.emit("chat-message", msg); // send to others
-  });
-
   socket.on("sync-play", (data) => {
-    socket.broadcast.emit("sync-play", data);
+    if (socket.roomId) {
+      socket.to(socket.roomId).emit("sync-play", data);
+    }
   });
 
+  /** ---------------------------------
+   * 💬 1-1 CHAT (Dashboard Chat Section)
+   ---------------------------------- */
+  socket.on("join_room", (room) => {
+    socket.join(room);
+    console.log(`👤 User ${socket.id} joined private 1-1 chat room: ${room}`);
+  });
+
+  socket.on("send_message", (data) => {
+    io.to(data.room).emit("receive_message", data); // only to specific 1-1 room
+  });
+
+  /** ---------------------------------
+   * 🌐 Cleanup or fallback handlers (optional)
+   ---------------------------------- */
   socket.on("disconnect", () => {
     console.log("❌ User disconnected:", socket.id);
   });
 });
-
-
-
-
-
 
 
 

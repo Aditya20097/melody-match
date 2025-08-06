@@ -1,5 +1,224 @@
 
 
+// import { useEffect, useState, useRef } from "react";
+// import axios from "axios";
+// import socket from "./Socket";
+// import "./MusicRoom.css";
+
+// export default function Room() {
+//   const userName = localStorage.getItem("first_name") || "User";
+//   const userPic = localStorage.getItem("profile_url") || "";
+//   const [player, setPlayer] = useState(null);
+//   const [deviceId, setDeviceId] = useState(null);
+//   const [isPaused, setIsPaused] = useState(true);
+//   const [query, setQuery] = useState("");
+//   const [results, setResults] = useState([]);
+//   const [nowPlaying, setNowPlaying] = useState(null);
+// const [progress, setProgress] = useState(0);
+// const [chatMessages, setChatMessages] = useState([]);
+// const [inputMessage, setInputMessage] = useState("");
+// const chatEndRef = useRef(null);
+// const [isTyping, setIsTyping] = useState(false);
+// const [someoneTyping, setSomeoneTyping] = useState(null);
+
+
+
+
+//   const token = localStorage.getItem("spotify_access_token");
+
+//   useEffect(() => {
+//     if (!token) return;
+
+//     const existingScript = document.getElementById("spotify-sdk");
+//     if (!existingScript) {
+//       const script = document.createElement("script");
+//       script.id = "spotify-sdk";
+//       script.src = "https://sdk.scdn.co/spotify-player.js";
+//       script.async = true;
+//       document.body.appendChild(script);
+//     }
+
+//     window.onSpotifyWebPlaybackSDKReady = () => {
+//   const newPlayer = new window.Spotify.Player({
+//     name: "Harmonic Soul Player 🎵",
+//     getOAuthToken: cb => cb(token),
+//     volume: 0.5,
+//   });
+
+//   newPlayer.addListener("ready", ({ device_id }) => {
+//     console.log("✅ Player is ready with device ID:", device_id);
+//     setDeviceId(device_id);
+//     localStorage.setItem("spotify_device_id", device_id);
+//   });
+
+//   newPlayer.addListener("player_state_changed", (state) => {
+//     if (!state) return;
+//     setIsPaused(state.paused);
+
+//     const { current_track } = state.track_window;
+//     setNowPlaying({
+//       name: current_track.name,
+//       artist: current_track.artists.map(a => a.name).join(", "),
+//       albumArt: current_track.album.images[0]?.url,
+//       duration: state.duration,
+//     });
+
+//     setProgress(state.position);
+//   });
+
+//   newPlayer.connect();
+//   setPlayer(newPlayer); // Important!
+
+//   // ✅ Sync Playback Listener — place it here!
+//   socket.on("sync-play", async (data) => {
+//     if (!newPlayer) return;
+
+//     if (data.action === "play") {
+//       await newPlayer.resume();
+//     } else if (data.action === "pause") {
+//       await newPlayer.pause();
+//     } else if (data.action === "play-track" && data.uri) {
+//       try {
+//         await axios.put(
+//           `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+//           { uris: [data.uri] },
+//           {
+//             headers: {
+//               Authorization: `Bearer ${token}`,
+//               "Content-Type": "application/json",
+//             },
+//           }
+//         );
+//       } catch (err) {
+//         console.error("Track sync failed", err);
+//       }
+//     }
+//   });
+  
+
+// // Receive message
+// socket.on("chat-message", (msg) => {
+//   setChatMessages(prev => [...prev, msg]);
+// });
+
+
+// };
+
+//   }, [token]);
+
+//   useEffect(() => {
+//   const interval = setInterval(() => {
+//     if (!player) return;
+//     player.getCurrentState().then(state => {
+//       if (!state) return;
+//       setProgress(state.position);
+//     });
+//   }, 1000);
+
+//   return () => clearInterval(interval);
+// }, [player]);
+
+
+//  const togglePlayback = () => {
+//   if (player) {
+//     player.getCurrentState().then(state => {
+//       const isPaused = state?.paused;
+//       if (isPaused) {
+//         player.resume();
+//         socket.emit("sync-play", { action: "play" });
+//       } else {
+//         player.pause();
+//         socket.emit("sync-play", { action: "pause" });
+//       }
+//     });
+//   }
+// };
+
+
+
+
+//   const handleSearch = async (e) => {
+//     e.preventDefault();
+//     if (!query.trim()) return;
+
+//     try {
+//       const res = await axios.get(`https://api.spotify.com/v1/search`, {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//         params: {
+//           q: query,
+//           type: "track",
+//           limit: 10,
+//         },
+//       });
+//       setResults(res.data.tracks.items);
+//     } catch (err) {
+//       console.error("Search failed", err);
+//     }
+//   };
+
+//  const playTrack = async (uri) => {
+//   if (!deviceId) return;
+//   try {
+//     await axios.put(
+//       `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+//       { uris: [uri] },
+//       {
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//           "Content-Type": "application/json",
+//         },
+//       }
+//     );
+
+//     // Emit sync-play event
+//     socket.emit("sync-play", { action: "play-track", uri });
+//   } catch (err) {
+//     console.error("Playback failed", err);
+//   }
+// };
+
+//   const sendMessage = () => {
+//   if (inputMessage.trim()) {
+//     const msg = {
+//       user: userName,
+//       avatar: userPic,
+//       text: inputMessage.trim(),
+//       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+//     };
+//     socket.emit("chat-message", msg);
+//     setChatMessages(prev => [...prev, msg]); // Optional: instantly update UI
+//     setInputMessage("");
+//   }
+// };
+
+// useEffect(() => {
+//   if (chatEndRef.current) {
+//     chatEndRef.current.scrollIntoView({ behavior: "smooth" });
+//   }
+// }, [chatMessages]);
+
+// useEffect(() => {
+//   socket.on("typing", (data) => {
+//     if (data.user !== userName) {
+//       setSomeoneTyping(data.user);
+//     }
+//   });
+
+//   const clearTyping = setInterval(() => {
+//     setSomeoneTyping(null);
+//   }, 2000); // clear after 2 sec
+
+//   return () => clearInterval(clearTyping);
+// }, []);
+
+// const handleInputChange = (e) => {
+//   setInputMessage(e.target.value);
+//   setIsTyping(true);
+  
+//     socket.emit("typing", { user: userName }); 
+// };
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import socket from "./Socket";
@@ -8,23 +227,39 @@ import "./MusicRoom.css";
 export default function Room() {
   const userName = localStorage.getItem("first_name") || "User";
   const userPic = localStorage.getItem("profile_url") || "";
+  const token = localStorage.getItem("spotify_access_token");
+  const ROOM_ID = "music-room";
+
   const [player, setPlayer] = useState(null);
   const [deviceId, setDeviceId] = useState(null);
   const [isPaused, setIsPaused] = useState(true);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [nowPlaying, setNowPlaying] = useState(null);
-const [progress, setProgress] = useState(0);
-const [chatMessages, setChatMessages] = useState([]);
-const [inputMessage, setInputMessage] = useState("");
-const chatEndRef = useRef(null);
-const [isTyping, setIsTyping] = useState(false);
-const [someoneTyping, setSomeoneTyping] = useState(null);
+  const [progress, setProgress] = useState(0);
 
+  const [chatMessages, setChatMessages] = useState([]);
+  const [inputMessage, setInputMessage] = useState("");
+  const [someoneTyping, setSomeoneTyping] = useState(null);
+  const chatEndRef = useRef(null);
 
+  // 🎧 Join room on mount
+  useEffect(() => {
+    socket.emit("join_music_room", ROOM_ID);
 
+    socket.on("chat-message", (msg) => {
+      setChatMessages((prev) => [...prev, msg]);
+    });
 
-  const token = localStorage.getItem("spotify_access_token");
+    socket.on("typing", ({ user }) => {
+      if (user !== userName) setSomeoneTyping(user);
+    });
+
+    return () => {
+      socket.off("chat-message");
+      socket.off("typing");
+    };
+  }, []);
 
   useEffect(() => {
     if (!token) return;
@@ -39,103 +274,87 @@ const [someoneTyping, setSomeoneTyping] = useState(null);
     }
 
     window.onSpotifyWebPlaybackSDKReady = () => {
-  const newPlayer = new window.Spotify.Player({
-    name: "Harmonic Soul Player 🎵",
-    getOAuthToken: cb => cb(token),
-    volume: 0.5,
-  });
+      const newPlayer = new window.Spotify.Player({
+        name: "Harmonic Soul Player 🎵",
+        getOAuthToken: cb => cb(token),
+        volume: 0.5,
+      });
 
-  newPlayer.addListener("ready", ({ device_id }) => {
-    console.log("✅ Player is ready with device ID:", device_id);
-    setDeviceId(device_id);
-    localStorage.setItem("spotify_device_id", device_id);
-  });
+      newPlayer.addListener("ready", ({ device_id }) => {
+        console.log("✅ Player is ready with device ID:", device_id);
+        setDeviceId(device_id);
+        localStorage.setItem("spotify_device_id", device_id);
+      });
 
-  newPlayer.addListener("player_state_changed", (state) => {
-    if (!state) return;
-    setIsPaused(state.paused);
+      newPlayer.addListener("player_state_changed", (state) => {
+        if (!state) return;
+        setIsPaused(state.paused);
 
-    const { current_track } = state.track_window;
-    setNowPlaying({
-      name: current_track.name,
-      artist: current_track.artists.map(a => a.name).join(", "),
-      albumArt: current_track.album.images[0]?.url,
-      duration: state.duration,
-    });
+        const { current_track } = state.track_window;
+        setNowPlaying({
+          name: current_track.name,
+          artist: current_track.artists.map(a => a.name).join(", "),
+          albumArt: current_track.album.images[0]?.url,
+          duration: state.duration,
+        });
 
-    setProgress(state.position);
-  });
+        setProgress(state.position);
+      });
 
-  newPlayer.connect();
-  setPlayer(newPlayer); // Important!
+      newPlayer.connect();
+      setPlayer(newPlayer);
 
-  // ✅ Sync Playback Listener — place it here!
-  socket.on("sync-play", async (data) => {
-    if (!newPlayer) return;
+      socket.on("sync-play", async (data) => {
+        if (!newPlayer) return;
 
-    if (data.action === "play") {
-      await newPlayer.resume();
-    } else if (data.action === "pause") {
-      await newPlayer.pause();
-    } else if (data.action === "play-track" && data.uri) {
-      try {
-        await axios.put(
-          `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
-          { uris: [data.uri] },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
+        if (data.action === "play") {
+          await newPlayer.resume();
+        } else if (data.action === "pause") {
+          await newPlayer.pause();
+        } else if (data.action === "play-track" && data.uri) {
+          try {
+            await axios.put(
+              `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+              { uris: [data.uri] },
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "application/json",
+                },
+              }
+            );
+          } catch (err) {
+            console.error("Track sync failed", err);
           }
-        );
-      } catch (err) {
-        console.error("Track sync failed", err);
-      }
-    }
-  });
-  
-
-// Receive message
-socket.on("chat-message", (msg) => {
-  setChatMessages(prev => [...prev, msg]);
-});
-
-
-};
-
+        }
+      });
+    };
   }, [token]);
 
   useEffect(() => {
-  const interval = setInterval(() => {
-    if (!player) return;
-    player.getCurrentState().then(state => {
-      if (!state) return;
-      setProgress(state.position);
-    });
-  }, 1000);
+    const interval = setInterval(() => {
+      if (!player) return;
+      player.getCurrentState().then(state => {
+        if (!state) return;
+        setProgress(state.position);
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [player]);
 
-  return () => clearInterval(interval);
-}, [player]);
-
-
- const togglePlayback = () => {
-  if (player) {
-    player.getCurrentState().then(state => {
-      const isPaused = state?.paused;
-      if (isPaused) {
-        player.resume();
-        socket.emit("sync-play", { action: "play" });
-      } else {
-        player.pause();
-        socket.emit("sync-play", { action: "pause" });
-      }
-    });
-  }
-};
-
-
-
+  const togglePlayback = () => {
+    if (player) {
+      player.getCurrentState().then(state => {
+        if (state?.paused) {
+          player.resume();
+          socket.emit("sync-play", { action: "play" });
+        } else {
+          player.pause();
+          socket.emit("sync-play", { action: "pause" });
+        }
+      });
+    }
+  };
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -143,14 +362,8 @@ socket.on("chat-message", (msg) => {
 
     try {
       const res = await axios.get(`https://api.spotify.com/v1/search`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        params: {
-          q: query,
-          type: "track",
-          limit: 10,
-        },
+        headers: { Authorization: `Bearer ${token}` },
+        params: { q: query, type: "track", limit: 10 },
       });
       setResults(res.data.tracks.items);
     } catch (err) {
@@ -158,68 +371,56 @@ socket.on("chat-message", (msg) => {
     }
   };
 
- const playTrack = async (uri) => {
-  if (!deviceId) return;
-  try {
-    await axios.put(
-      `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
-      { uris: [uri] },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    // Emit sync-play event
-    socket.emit("sync-play", { action: "play-track", uri });
-  } catch (err) {
-    console.error("Playback failed", err);
-  }
-};
+  const playTrack = async (uri) => {
+    if (!deviceId) return;
+    try {
+      await axios.put(
+        `https://api.spotify.com/v1/me/player/play?device_id=${deviceId}`,
+        { uris: [uri] },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      socket.emit("sync-play", { action: "play-track", uri });
+    } catch (err) {
+      console.error("Playback failed", err);
+    }
+  };
 
   const sendMessage = () => {
-  if (inputMessage.trim()) {
-    const msg = {
-      user: userName,
-      avatar: userPic,
-      text: inputMessage.trim(),
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-    };
-    socket.emit("chat-message", msg);
-    setChatMessages(prev => [...prev, msg]); // Optional: instantly update UI
-    setInputMessage("");
-  }
-};
-
-useEffect(() => {
-  if (chatEndRef.current) {
-    chatEndRef.current.scrollIntoView({ behavior: "smooth" });
-  }
-}, [chatMessages]);
-
-useEffect(() => {
-  socket.on("typing", (data) => {
-    if (data.user !== userName) {
-      setSomeoneTyping(data.user);
+    if (inputMessage.trim()) {
+      const msg = {
+        user: userName,
+        avatar: userPic,
+        text: inputMessage.trim(),
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      };
+      socket.emit("chat-message", { roomId: ROOM_ID, ...msg });
+      setChatMessages(prev => [...prev, msg]);
+      setInputMessage("");
     }
-  });
+  };
 
-  const clearTyping = setInterval(() => {
-    setSomeoneTyping(null);
-  }, 2000); // clear after 2 sec
+  const handleInputChange = (e) => {
+    setInputMessage(e.target.value);
+    socket.emit("typing", { roomId: ROOM_ID, user: userName });
+  };
 
-  return () => clearInterval(clearTyping);
-}, []);
+  useEffect(() => {
+    if (chatEndRef.current) {
+      chatEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [chatMessages]);
 
-const handleInputChange = (e) => {
-  setInputMessage(e.target.value);
-  setIsTyping(true);
-  
-    socket.emit("typing", { user: userName }); 
-};
-
+  useEffect(() => {
+    const clearTyping = setInterval(() => {
+      setSomeoneTyping(null);
+    }, 2000);
+    return () => clearInterval(clearTyping);
+  }, []);
 
   return (
     <div className="room-container">
