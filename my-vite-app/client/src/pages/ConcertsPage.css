@@ -14,7 +14,10 @@
   min-height: 100vh;
   width: 100vw; /* Full width */
   margin: 0 auto;
-  background: linear-gradient(to right, #0f2027, #203a43, #2c5364); /* Blue gradient */
+  background:  linear-gradient(to right, rgba(229,231,235,0.8) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(229,231,235,0.8) 1px, transparent 1px),
+        radial-gradient(circle 500px at 0% 20%, rgba(139,92,246,0.3), transparent),
+        radial-gradient(circle 500px at 100% 0%, rgba(59,130,246,0.3), transparent);
   color: #fff;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   overflow-x: hidden; /* Prevent unwanted horizontal scroll */
