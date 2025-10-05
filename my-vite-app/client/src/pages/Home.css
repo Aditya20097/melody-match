@@ -1,119 +1,5 @@
-/* body, html {
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #0f0f1a;
-  overflow-x: hidden;
-}
+/* 
 
-.overlay {
-  min-height: 100vh;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.9)),
-              url("C:\Users\adity\Downloads\Desktop\new melody match\MelodyMatchvvit purnea\my-app\client\src\images\melody-bg.png") center/cover no-repeat; 
-  display: flex;
-  flex-direction: column;
-  color: white;
-}
-
-
-
-
-.home {
-  flex-grow: 1;
-  text-align: center;
-  margin-top: 10vh;
-  padding: 0 2rem;
-}
-
-.primary-title, .home h1 {
-  font-size: 3rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  line-height: 1.3;
-}
-
-.home p {
-  font-size: 1.2rem;
-  opacity: 0.9;
-  margin-bottom: 2rem;
-}
-
-.primary-button, .cta {
-  padding: 0.8rem 2.2rem;
-  font-size: 1rem;
-  border: none;
-  border-radius: 30px;
-  background: linear-gradient(to right, #ff4f81, #ff8a5c);
-  color: white;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-}
-
-.primary-button:hover, .cta:hover {
-  transform: scale(1.05);
-}
-
-.music-wave {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  height: 40px;
-  margin-top: 20px;
-  gap: 8px;
-}
-
-.music-wave .bar {
-  width: 6px;
-  height: 20px;
-  background-color: white;
-  animation: bounce 1s infinite ease-in-out;
-  animation-direction: alternate;
-} 
-
- .music-wave .bar:nth-child(2) { animation-delay: 0.1s; }
-.music-wave .bar:nth-child(3) { animation-delay: 0.2s; }
-.music-wave .bar:nth-child(4) { animation-delay: 0.3s; }
-.music-wave .bar:nth-child(5) { animation-delay: 0.4s; }
-.music-wave .bar:nth-child(6) { animation-delay: 0.5s; }
-
-@keyframes bounce {
-  from {
-    height: 10px;
-  }
-  to {
-    height: 35px;
-  }
-}
-
-
-.music-toggle {
-  margin-top: 1rem;
-  background-color: rgba(255, 255, 255, 0.15);
-  border: 1px solid white;
-  color: white;
-  padding: 0.5rem 1.2rem;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-}
-
-.music-toggle:hover {
-  background-color: rgba(255, 255, 255, 0.25);
-  transform: scale(1.05);
-}
-
-
- footer {
-  text-align: center;
-  padding: 1.5rem 1rem;
-  font-size: 0.9rem;
-  opacity: 0.6;
-} 
-
- */
-
- /* Reset */
 body, html {
   margin: 0;
   padding: 0;
@@ -122,7 +8,7 @@ body, html {
   overflow-x: hidden;
 }
 
-/* Gradient background for main container */
+
 .overlay {
   min-height: 100vh;
 background: linear-gradient(90deg, #2b086e, #6a0dad, #ff007f);
@@ -141,7 +27,7 @@ background: linear-gradient(90deg, #2b086e, #6a0dad, #ff007f);
   position: relative;
 }
 
-/* Hero Section */
+
 .hero-section {
   flex: 1;
   display: flex;
@@ -161,7 +47,7 @@ background: linear-gradient(90deg, #2b086e, #6a0dad, #ff007f);
   line-height: 1.3;
 }
 
-/* Scrolling Text Animation */
+
 .scroll-text p {
   font-size: 1.2rem;
   color: #fbd4ff;
@@ -177,7 +63,7 @@ background: linear-gradient(90deg, #2b086e, #6a0dad, #ff007f);
   100% { transform: translateX(-100%); }
 }
 
-/* Button */
+
 .primary-button {
   background-color: #ff1e74;
   color: white;
@@ -194,7 +80,7 @@ background: linear-gradient(90deg, #2b086e, #6a0dad, #ff007f);
   background-color: #e60063;
 }
 
-/* Music Toggle Button */
+
 .music-toggle {
   background: transparent;
   border: 2px solid #fff;
@@ -211,7 +97,7 @@ background: linear-gradient(90deg, #2b086e, #6a0dad, #ff007f);
   border-color: #ff5fc0;
 }
 
-/* Wave Bars Animation */
+
 .music-wave {
   display: flex;
   gap: 6px;
@@ -237,11 +123,196 @@ background: linear-gradient(90deg, #2b086e, #6a0dad, #ff007f);
   50% { height: 50px; }
 }
 
-/* Footer */
+
 footer {
   text-align: center;
   padding: 1.5rem 0;
   font-size: 0.9rem;
   color: #cfcfcf;
   background: transparent;
+} */
+
+/* Base Styles */
+.overlay {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0e0f2b, #111437);
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
+}
+
+.hero-section {
+  text-align: center;
+  padding: 12vh 2rem 8vh;
+  position: relative;
+}
+
+.primary-title {
+  font-size: 3.4rem;
+  line-height: 1.2;
+  background: linear-gradient(90deg, #ff89cc, #7ccaff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.scroll-text {
+  font-size: 1.3rem;
+  color: #ccc;
+  margin-top: 1.5rem;
+}
+
+.primary-button {
+  margin-top: 2.5rem;
+  padding: 1rem 2.6rem;
+  border-radius: 2rem;
+  background: linear-gradient(90deg, #ff7ed6, #66b9ff);
+  border: none;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255, 126, 214, 0.4);
+  transition: 0.3s;
+}
+
+.primary-button:hover {
+  transform: scale(1.05);
+}
+
+/* Wave */
+.music-wave {
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+.bar {
+  width: 6px;
+  height: 15px;
+  margin: 0 4px;
+  background: linear-gradient(180deg, #ff88cc, #77ccff);
+  border-radius: 5px;
+  animation: wave 1s ease-in-out infinite;
+}
+.bar:nth-child(2) { animation-delay: 0.1s; }
+.bar:nth-child(3) { animation-delay: 0.2s; }
+.bar:nth-child(4) { animation-delay: 0.3s; }
+.bar:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes wave {
+  0%, 100% { height: 15px; opacity: 0.6; }
+  50% { height: 40px; opacity: 1; }
+}
+
+/* Features Section */
+.features-section {
+  text-align: center;
+  padding: 8vh 2rem;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+}
+
+.features-section h2 {
+  font-size: 2.4rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(90deg, #ff99cc, #80c9ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1.8rem;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.feature-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: 0.3s;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+.feature-card:hover {
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.08);
+}
+.feature-card h3 {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}
+.feature-card p {
+  color: #ccc;
+  margin-top: 0.6rem;
+  font-size: 0.95rem;
+}
+
+/* Section Layout (Dashboard, Chat, etc.) */
+section {
+  padding: 10vh 4vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  max-width: 1100px;
+}
+.content.reverse {
+  flex-direction: row-reverse;
+}
+
+.text {
+  flex: 1;
+}
+.text h2 {
+  font-size: 2rem;
+  background: linear-gradient(90deg, #ff88cc, #66b9ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.text p {
+  color: #d0d0d0;
+  line-height: 1.6;
+  margin-top: 1rem;
+}
+
+.image {
+  flex: 1;
+  height: 300px;
+  border-radius: 1rem;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 30px rgba(255, 128, 200, 0.2);
+}
+
+/* Demo Backgrounds */
+.dashboard-preview {
+  background-image: url("https://cdn.pixabay.com/photo/2023/03/07/13/18/dashboard-7837263_1280.png");
+}
+.onboarding-preview {
+  background-image: url("https://cdn.pixabay.com/photo/2021/08/04/13/37/forms-6521365_1280.png");
+}
+.chatting-preview {
+  background-image: url("https://cdn.pixabay.com/photo/2017/02/16/14/35/chat-2071431_1280.png");
+}
+.music-preview {
+  background-image: url("https://cdn.pixabay.com/photo/2017/02/07/14/32/music-2048701_1280.jpg");
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 2rem 0;
+  color: #bbb;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+footer span {
+  background: linear-gradient(90deg, #ff8dd3, #7fcaff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
